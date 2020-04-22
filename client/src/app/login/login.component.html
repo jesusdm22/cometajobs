@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Cometa Jobs &mdash; Iniciar sesion</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon"  type="image/png"  href="../../assets/loginAssets/logos/cjLogoNegro.png" />
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin" #loginForm="ngForm"  (ngSubmit)="onSubmit()">
+      <img class="mb-4" src="../../assets/loginAssets/logos/cjLogoNegro.png"  draggable="false"/>
+      <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
+
+      <!--LOGIN-->
+      <div data-validate="El usuario es obligatorio">
+        <input class="form-control" type="text" name="login" #login="ngModel" [(ngModel)]="user.login" placeholder="Login" required/>
+        <span class="text-danger" *ngIf="!login.valid && login.touched">El usuario es obligatorio</span>
+      </div>
+      <br>
+
+      <!--PASSWORD-->
+      <div data-validate="La contraseña es obligatoria">
+        <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Contraseña" required />
+        <span class="text-danger" *ngIf="!password.valid && password.touched">La contraseña es obligatoria</span>
+      </div>
+      <br>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Iniciar sesión
+      </button>
+
+      <!--ERRORES-->
+      <br><br>
+      <div class="alert alert-success" *ngIf="status === 'success'">
+            Inicio de sesion completado correctamente
+      </div>
+
+        <div class="alert alert-danger" *ngIf="status === 'error'">
+            Credenciales incorrectas
+        </div>
+      <p class="mt-5 mb-3 text-muted">&copy; Cometa Jobs</p>
+    </form>
+  </body>
+</html>

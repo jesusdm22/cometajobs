@@ -1,0 +1,137 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Cometa Jobs &mdash; Registro</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon"  type="image/png"  href="../../assets/loginAssets/logos/cjLogoNegro.png" />
+</head>
+    
+
+<body>
+
+    <div class="container">
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../../assets/loginAssets/logos/cjNegro.png" width="300" draggable="false">
+        <h3>Registro en la plataforma</h3>
+        <p class="lead">Crea una cuenta en Cometa Jobs para poder encontrar ofertas de trabajo a las que poder aspirar. <br>En cambio, si eres una empresa 
+            y no un candidato podras publicar tus ofertas de trabajo.
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 order-md-1">
+          <h4 class="mb-3">Datos de usuario</h4>
+
+         <!--FORMULARIO-->
+          <form  #registerForm="ngForm"  (ngSubmit)="onSubmit(registerForm)">
+            <div class="row">
+
+            <!--Nombre-->
+              <div class="col-md-6 mb-3">
+                <label for="firstName">Nombre completo:</label>
+                <input type="text" class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="user.nombre" placeholder="Nombre completo"  required>
+                <span class="text-danger" *ngIf="!nombre.valid && nombre.touched">El nombre es obligatorio</span>
+              </div>
+
+            <!--Login-->
+              <div class="col-md-6 mb-3">
+                <label for="username">Usuario:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">@</span>
+                    </div>
+                    <input type="text" class="form-control" name="login" #login="ngModel" [(ngModel)]="user.login" placeholder="Login" required>
+                    <span class="text-danger" *ngIf="!login.valid && login.touched">El usuario es obligatorio</span>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+                <!--Contraseña-->
+                <div class="col-md-6 mb-3">
+                  <label for="firstName">Contraseña:</label>
+                  <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Contraseña" value="" required>
+                  <span class="text-danger" *ngIf="!password.valid && password.touched">La contraseña es obligatoria</span>
+                </div>
+
+                <!--Repite contraseña
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">Repite contraseña:</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Repite contraseña" value="" required>
+                </div>-->
+            </div>
+
+
+
+            <div class="row">
+                <!--E-Mail-->
+                <div class="col-md-6 mb-3">
+                    <label for="email">E-Mail:</label>
+                    <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email"
+                     placeholder="email@example.com"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                     <span class="text-danger" *ngIf="!email.valid && email.touched">El correo no es correcto</span>
+                </div>
+
+                <!--Movil-->
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">Numero de telefono:</label>
+                    <input type="text" class="form-control" name="movil" #movil="ngModel" [(ngModel)]="user.movil" 
+                    placeholder="Movil" pattern="[0-9]{9}" required>
+                    <span class="text-danger" *ngIf="!movil.valid && movil.touched">El movil es obligatorio</span>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+              <div class="col-md-5 mb-3">
+                <!--Tipo de perfil-->
+                <label for="country">Tipo de perfil:</label>
+                <select class="custom-select d-block w-100" name="acceso" #acceso="ngModel" [(ngModel)]="user.acceso" required>
+                  <option value="3" >Candidato</option>
+                  <option value="2" >Empresa</option>
+                </select>
+
+              </div>
+            </div>
+              <!--<div class="col-md-4 mb-3">
+                Foto de perfil
+                <label for="state">Imagen de perfil: <span class="text-muted"> (opcional)</span></label>
+                <input type="file" class="form-control">
+  
+              </div>
+              <div class="col-md-3 mb-3">
+                  Previsualizacion de la foto
+                <label for="zip">Previsualizacion:</label>
+              </div>
+            </div>-->
+            <hr class="mb-4">
+            <!--Enviar form-->
+                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!registerForm.form.valid">Registrarse</button>
+            <hr class="mb-4">
+          </form>
+        </div>
+
+        <!--MENSAJES-->
+        <div class="alert alert-success" *ngIf="status === 'success'">
+            Registro completado correctamente
+            <a [routerLink]="['/login']">Inicia sesion aqui</a>
+        </div>
+    
+        <div class="alert alert-danger" *ngIf="status === 'error'">
+            El registro no se ha completado, intentalo de nuevo
+        </div>
+
+      </div>
+
+      <footer class=" text-muted text-center text-small">
+        <p class="mb-1">&copy; Cometa Jobs</p>
+      </footer>
+      
+    </div>
+
+  </body>
+</html>
