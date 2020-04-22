@@ -4,7 +4,7 @@
     <title>Cometa Jobs &mdash; Iniciar sesion</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon"  type="image/png"  href="../../assets/loginAssets/logos/cjLogoNegro.png" />
+    <link rel="icon"  type="image/png"  href="../../assets/logos/cjLogoNegro.png" />
   </head>
 
   <body class="text-center">
@@ -31,6 +31,8 @@
       </button>
 
       <!--ERRORES-->
+      <br>
+      <span class="text-muted lead">¿No dispones de una cuenta?<a [routerLink]="['/registro']">Registrate aqui</a></span>
       <br><br>
       <div class="alert alert-success" *ngIf="status === 'success'">
             Inicio de sesion completado correctamente

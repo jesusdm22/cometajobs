@@ -13,7 +13,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="../../assets/loginAssets/logos/cjNegro.png" width="300" draggable="false">
+        <img class="d-block mx-auto mb-4" src="../../assets/logos/cjNegro.png" width="300" draggable="false">
         <h3>Registro en la plataforma</h3>
         <p class="lead">Crea una cuenta en Cometa Jobs para poder encontrar ofertas de trabajo a las que poder aspirar. <br>En cambio, si eres una empresa 
             y no un candidato podras publicar tus ofertas de trabajo.
@@ -120,13 +120,13 @@
             Registro completado correctamente
             <a [routerLink]="['/login']">Inicia sesion aqui</a>
         </div>
-    
+        
         <div class="alert alert-danger" *ngIf="status === 'error'">
             El registro no se ha completado, intentalo de nuevo
         </div>
 
       </div>
-
+     
       <footer class=" text-muted text-center text-small">
         <p class="mb-1">&copy; Cometa Jobs</p>
       </footer>
