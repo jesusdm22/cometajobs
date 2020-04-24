@@ -1,7 +1,131 @@
-<div id="carouselExampleSlidesOnly" class="carousel slide">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="..." alt="First slide">
+<!-- BUSCADOR -->
+<section class="home-section section-hero overlay bg-image" style="background-image: url('../assets/images/background.jpg');" id="home-section">
+
+  <div class="container">
+      <div class="row align-items-center justify-content-center">
+          <div class="col-md-12">
+              <div class="mb-10 text-center">
+                  <h1 class="text-white font-weight-bold">¿De qué quieres trabajar?</h1>
+                  <p>Encuentra el empleo de tus sueños usando nuestro buscador.</p>
+              </div>
+
+              <!-- TODO: FORMULARIO PARA FILTRAR POR TITULO, UBICACION Y TIPO DE JORNADA-->
+              <form method="post" class="search-jobs-form" action="">
+                  <div class="row mb-5">
+                      <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                          <input type="text" class="form-control form-control-lg" placeholder="Puesto, empresa..." name="titulo">
+                      </div>
+                      <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                          <select class="form-control" name="ubicacion" >
+                              <option value="{{ubicacion._id}}" *ngFor="let ubicacion of ubicaciones">{{ubicacion.ubicacion}}</option>
+                          </select>
+                      </div>
+                      <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                          <select class="form-control" name="jornada">
+                            <option value="{{jornada._id}}" *ngFor="let jornada of jornadas">{{jornada.jornada}}</option>
+                          </select>
+                      </div>
+                      <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                          <button type="submit" class="btn btn-primary btn-lg btn-block text-white btn-search"><span class="icon-search icon mr-2"></span>Buscar</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
       </div>
-    </div>
   </div>
+</section>
+
+<!--ULTIMAS OFERTAS-->
+<section class="site-section">
+  <div class="container">
+
+      <div class="row mb-5 justify-content-center">
+          <div class="col-md-7 text-center">
+              <h2 class="section-title mb-2">Últimos empleos publicados</h2>
+          </div>
+      </div>
+
+
+      <div class="mb-5">
+
+          <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3 sombra" *ngFor="let oferta of ofertas">
+              <div class="col-md-2">
+
+                  <a *ngIf="oferta.empresa.imagen">
+                      <img src="{{ url + 'get-image-user/' + oferta.empresa.imagen }}" alt="Image" 
+                      class="img-thumbnail" width="130" draggable="false">
+                  </a>
+
+                  <a *ngIf="!oferta.empresa.imagen">
+                    <img src="../../assets/images/default.png" alt="Image"  
+                    class="img-thumbnail" width="130" draggable="false">
+                </a>
+
+              </div>
+              <div class="col-md-4">
+                  <span class="badge px-2 py-1 mb-3" style="color:black;" [style.backgroundColor]="oferta.jornada.color" >{{oferta.jornada.jornada}}</span>
+                  <h2><a href="job-single.html">{{oferta.titulo}}</a> </h2>
+                  <p class="meta">Publicado por: <strong>{{oferta.empresa.nombre}}</strong></p>
+                  <p class="meta">Fecha: <strong>{{oferta.created_at | amFromUnix | amLocale: "es" | amTimeAgo}}</strong></p>
+              </div>
+              <div class="col-md-3 text-left">
+              <h3><span class="icon-map-marker"></span>&nbsp; {{oferta.ubicacion}}</h3>
+              <span class="icon-globe"></span>&nbsp;<span class="meta"> España</span>
+              </div>
+              <div class="col-md-3 text-md-right">
+                  <strong class="text-black">{{oferta.sueldo}} € &nbsp;</strong><br><br>
+                  <!-- DEPENDIENDO DEL USUARIO QUE SEA, TENDRA UNOS PERMISOS U OTROS SOBRE LA OFERTA DE TRABAJO-->
+
+                  <!--CANDIDATO NO INSCRITO-->
+                  <a *ngIf="identity && (identity.acceso == 3) && (listaIdOfertas.indexOf(oferta._id) < 0)">
+                      <button class="btn btn-primary" (click)="inscribirse(oferta._id)">Inscribirme</button>
+                  </a>
+
+                  <!--DUEÑO DE LA OFERTA-->
+                  <a *ngIf="identity && (identity.acceso == 2)"><button class="btn btn-warning">EDITAR</button></a>
+
+                   <!--CANDIDATO YA INSCRITO-->
+                  <a  *ngIf="identity && (identity.acceso == 3) && (listaIdOfertas.indexOf(oferta._id) >= 0) ">
+                      <button class="btn btn-default">Ya inscrito</button>
+                </a>
+                  
+              </div>
+          </div>
+      </div>
+
+      
+
+      <!-- <div class="row pagination-wrap">
+
+          <div class="col-md-6 text-center text-md-left">
+              <div class="custom-pagination ml-auto">
+                  <a href="#" class="prev">Previous</a>
+                  <div class="d-inline-block">
+                      <a href="#" class="active">1</a>
+                      <a href="#">2</a>
+                      <a href="#">3</a>
+                      <a href="#">4</a>
+                  </div>
+                  <a href="#" class="next">Next</a>
+              </div>
+          </div>
+      </div> -->
+
+  </div>
+</section>
+
+
+<!--INVITACION REGISTRO-->
+<section class="py-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
+  <div class="container">
+      <div class="row align-items-center">
+          <div class="col-md-8">
+              <h2 class="text-white">¿Buscas empleo?</h2>
+              <p class="mb-0 text-white lead">Crea una cuenta ahora y accede a las distintas ofertas que las empresas publican en nuestra plataforma.</p>
+          </div>
+          <div class="col-md-3 ml-auto">
+              <a [routerLink]="['/registro']" class="btn btn-warning btn-block btn-lg">Regístrate</a>
+          </div>
+      </div>
+  </div>
+</section>

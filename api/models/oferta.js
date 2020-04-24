@@ -10,7 +10,8 @@ var OfertaSchema = Schema ({
     descripcion: String,
     experiencia: String,
     sueldo: String,
-    ubicacion: String, 
+    ubicacion: String,
+    jornada: {type: Schema.ObjectId, ref: 'Jornada'},// Referencia a otro tipo de dato
     created_at: String,
     empresa: {type: Schema.ObjectId, ref: 'Usuario'}// Referencia a otro tipo de dato
 });

@@ -1,5 +1,5 @@
 <!--navbar-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" [routerLink]="['']">
         <img src="../assets/logos/cjNegro.png" width="200">
     </a>
@@ -27,8 +27,7 @@
             {{identity.nombre}}
         </button>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item"  [routerLink]="['/profile/', identity._id]">Mi perfil</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Cerrar sesion</a>
           </div>
@@ -44,4 +43,34 @@
     </div>
   </nav>
 
+<!--CONTENIDO-->
 <router-outlet></router-outlet>
+
+<!--FOOTER
+<footer class="site-footer text-white sticky-bottom">
+
+  <div class="container">
+      <div class="row">
+          <div class="col-12 col-md-12 text-center ">
+              <h3>Contacta con nosotros</h3>
+              <ul class="list-unstyled">
+                  <li><a href="#">jesusdm22@hotmail.com</a></li>
+                  <li>+34 603 76 87 03</li>
+                  <li>La Algaba, Sevilla (España)</li>
+              </ul>
+          </div>
+      </div>
+      <div class="row text-center">
+          <div class="col-12">
+              <p>
+                   Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. 
+                  Jesús Díaz Muñoz || &copy;
+                  <script>
+                      document.write(new Date().getFullYear());
+                  </script> - Todos los derechos reservados || Impulsado por <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                  Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.   
+              </p>
+          </div>
+      </div>
+  </div>
+</footer>-->

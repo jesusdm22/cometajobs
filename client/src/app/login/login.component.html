@@ -9,7 +9,7 @@
 
   <body class="text-center">
     <form class="form-signin" #loginForm="ngForm"  (ngSubmit)="onSubmit()">
-      <img class="mb-4" src="../../assets/loginAssets/logos/cjLogoNegro.png"  draggable="false"/>
+      <img class="mb-4" src="../../assets/logos/cjLogoNegro.png"  draggable="false"/>
       <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
 
       <!--LOGIN-->
@@ -41,7 +41,6 @@
         <div class="alert alert-danger" *ngIf="status === 'error'">
             Credenciales incorrectas
         </div>
-      <p class="mt-5 mb-3 text-muted">&copy; Cometa Jobs</p>
     </form>
   </body>
 </html>

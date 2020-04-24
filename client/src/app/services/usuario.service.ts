@@ -107,7 +107,7 @@ export class UsuarioService {
 
     //Cabeceras http
     let headers = new HttpHeaders().set('Content-Type', 'application/json') //Cabeceras
-                               .set('Authorization', this.getToken());
+                               .set('Authorization',' this.getToken()');
 
     return this._http.get(this.url+'usuarios/'+page, {headers:headers});
   }

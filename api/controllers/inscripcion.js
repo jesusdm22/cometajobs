@@ -80,7 +80,7 @@ function getMisInscripciones(req, res) {
 
     var userId = req.user.sub; // Usuario logueado (id)
 
-    var find = Inscripcion.find({ usuario: userId })
+    var find = Inscripcion.find({ usuario: userId });
 
     // Query
     find.populate('usuario oferta').exec((err, inscripciones) => {
@@ -89,7 +89,7 @@ function getMisInscripciones(req, res) {
         if (!inscripciones)// Lista vacia
             return res.status(404).send({ message: 'No tienes ninguna inscripcion' });
 
-        return res.status(200).send({inscripciones}); // Mostramos la lista de inscripciones
+        return res.status(200).send({ inscripciones }); // Mostramos la lista de inscripciones
     });
 }
 

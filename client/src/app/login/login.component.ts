@@ -9,7 +9,8 @@ import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [UsuarioService]
 })
 export class LoginComponent implements OnInit {
 
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   
   constructor(private _usuarioService:UsuarioService, private _router: Router) { 
     this.title = 'Identificate';
-    this.user = new Usuario( "", "", "", "", "", "", "3", "", "" );
+    this.user = new Usuario( "", "", "", "", "", "","", "3", "", "", "" );
   }
 
   ngOnInit(): void {
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
            
            this.getToken(); //Llamada a la funcion que obtiene el token
            console.log(localStorage.getItem('token'));
+           this._router.navigate(['/home']);
             
          }
           

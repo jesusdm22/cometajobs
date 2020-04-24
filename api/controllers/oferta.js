@@ -24,6 +24,7 @@ function saveOferta(req, res) {
     oferta.experiencia = params.experiencia;
     oferta.sueldo = params.sueldo;
     oferta.ubicacion = params.ubicacion;
+    oferta.jornada = params.jornada;
     oferta.created_at = moment().unix();
     oferta.empresa = req.user.sub;
 
@@ -81,7 +82,7 @@ function getOfertas(req, res) {
     var itemsPerPage = 4;
 
 
-    Oferta.find().sort('created_at').paginate(page, itemsPerPage, (err, ofertas, total) => {
+    Oferta.find().sort('created_at').populate('empresa jornada').paginate(page, itemsPerPage, (err, ofertas, total) => {
         if (err)
             return res.status(500).send({ message: 'Error al devolver las ofertas' });
         if (!ofertas)

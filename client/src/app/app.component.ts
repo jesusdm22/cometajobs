@@ -5,7 +5,8 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [UsuarioService]
 })
 export class AppComponent {
   title = 'client';
@@ -28,6 +29,7 @@ export class AppComponent {
   logout(){
     localStorage.clear();
     this.identity = null;
+    this._router.navigate(['/login']);
   }
 
 }

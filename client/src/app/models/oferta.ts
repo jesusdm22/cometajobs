@@ -7,6 +7,7 @@ export class Oferta {
         public experiencia: string,
         public sueldo: string,
         public ubicacion: string,
+        public jornada: string,
         public created_at: string,
         public empresa: string
     ){}

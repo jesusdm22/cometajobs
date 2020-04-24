@@ -1,8 +1,118 @@
-.navbar{
-    border-bottom: 2px solid #1644ba;
+.navbar {
+  border-bottom: 4px solid #1644ba;
 }
 .btn-cj {
-    background-color: #1644ba;
-    color: white;
+  background-color: #1644ba;
+  color: white;
 }
 
+.site-footer {
+  padding: 2rem 0;
+  position: relative;
+  background: #242424;
+}
+@media (max-width: 991.98px) {
+  .site-footer {
+    padding: 2rem 0;
+  }
+}
+.site-footer.slanted-footer:before {
+  content: "";
+  background: #001f42;
+  height: 200px;
+  -webkit-transform: skewY(-5deg);
+  -ms-transform: skewY(-5deg);
+  transform: skewY(-5deg);
+  position: absolute;
+  left: 0;
+  top: -100px;
+  right: 0;
+  z-index: -1;
+}
+.site-footer h3 {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+.site-footer a {
+  color: rgba(255, 255, 255, 0.5);
+}
+.site-footer a:hover {
+  color: #fff;
+}
+.site-footer ul li {
+  margin-bottom: 0.5rem;
+}
+.site-footer ul li a {
+  color: rgba(255, 255, 255, 0.5);
+}
+.site-footer ul li a:hover {
+  color: #fff;
+}
+.site-footer .scroll-top {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #fff;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.site-footer .scroll-top > span {
+  position: absolute;
+  font-size: 2rem;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: #000 !important;
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.5);
+}
+.copyright a {
+  color: #fff;
+}
+.footer-social a,
+.social a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  background: #1644ba;
+  border-radius: 50%;
+  text-decoration: none !important;
+}
+.footer-social a > span,
+.social a > span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  color: #fff;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.footer-social a:hover,
+.social a:hover {
+  background: #fff;
+}
+.footer-social a:hover span,
+.social a:hover span {
+  color: #1644ba;
+}
+
+.social a:hover {
+  background: #343a40;
+}
+.social a:hover span {
+  color: #fff;
+}

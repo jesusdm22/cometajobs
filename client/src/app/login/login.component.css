@@ -13,13 +13,15 @@ body {
   align-items: center;
   -webkit-box-pack: center;
   justify-content: center;
-  padding-top: 4%;
+  padding-top: 15%;
+  padding-bottom: 10%;
 }
 
 .form-signin {
   width: 100%;
   max-width: 330px;
   padding: 15px;
+  padding-bottom: 2%;
   margin: 0 auto;
 }
 .form-signin .checkbox {

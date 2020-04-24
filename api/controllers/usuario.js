@@ -6,6 +6,7 @@ var User = require('../models/usuario.js');
 var Oferta = require('../models/oferta.js');
 // Cargamos el servicio de tokens
 var jwt = require('../services/jwt.js');
+var moment = require('moment');
 // Cargamos el mongoose pagination
 var mongoosePagination = require('mongoose-pagination');
 // Cargamos filesystem
@@ -30,6 +31,8 @@ function saveUser(req, res) {
         user.login = params.login;
         user.movil = params.movil;
         user.email = params.email;
+        user.biografia = params.biografia;
+        user.created_at = moment().unix();
 
         if(!params.acceso) //Si no nos llega tipo de perfil, por defecto sera un candidato (3)
             user.acceso = '3';
@@ -166,8 +169,6 @@ function getUsers(req, res) {
 
             return res.status(200).send({
                 users,
-                users_following: value.following,
-                users_follows_me: value.followed,
                 total,
                 pages: Math.ceil(total / itemsPerPage) //Numero de paginas = total de usuarios / usuarios por pagina
             });

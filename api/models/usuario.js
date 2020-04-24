@@ -12,8 +12,10 @@ var UsuarioSchema = Schema({
     password: String,
     movil: String,
     email: String,
+    biografia: String,
     acceso: String,
-    imagen: String
+    imagen: String,
+    created_at: String
 })
 
 // Lo exportamos, dandole un nombre al modelo y pasandole el esquema creado
