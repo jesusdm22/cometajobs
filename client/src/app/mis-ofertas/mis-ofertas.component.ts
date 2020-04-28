@@ -50,7 +50,6 @@ export class MisOfertasComponent implements OnInit {
   }
 
   ngDoCheck() {
-
     this.identity = this._usuarioService.getIdentity();
   }
 
@@ -135,4 +134,24 @@ export class MisOfertasComponent implements OnInit {
     );
   }
 
+  deleteOferta(idOferta){
+    //Preguntamos al usuario si desea eliminar la oferta
+    var respuesta = window.confirm("¿Esta seguro de eliminar esta oferta?");
+
+
+    //Si la respuesta es si
+    if(respuesta){ //Llamamos al servicio, elimamos y recargamos
+      this._ofertaService.deleteOferta(this.token, idOferta).subscribe(
+        response => {
+          window.location.reload();
+        },
+
+        error => {
+          console.log(<any>error);
+        }
+      );
+    }
+      
+    
+  }
 }

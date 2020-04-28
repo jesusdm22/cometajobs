@@ -43,6 +43,8 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" [routerLink]="['/editar-oferta/', oferta._id]">Editar</a>
                   <a class="dropdown-item" [routerLink]="['/inscritos']">Inscritos</a>
+                  <hr class="divider">
+                  <button class="dropdown-item text-danger" (click)="deleteOferta(oferta._id)">Eliminar oferta</button>
                 </div>
               </div>
               
