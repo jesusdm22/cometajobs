@@ -3,36 +3,42 @@
 <hr>
 <div class="mb-5">
 
-  <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3 sombra" >
-      <div class="col-md-2">
+    <div  *ngFor="let oferta of ofertas">
+        <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3 sombra" *ngIf="identity && (identity.acceso == 3) && (listaIdOfertas.indexOf(oferta._id) >= 0) "
+            >
+            <div class="col-md-2">
 
-          <a >
-              <img src="" alt="Image" 
-              class="img-thumbnail" width="130" draggable="false">
-          </a>
-
-          <a >
-            <img src="../../assets/images/default.png" alt="Image"  
-            class="img-thumbnail" width="130" draggable="false">
-        </a>
-
-      </div>
-      <div class="col-md-4">
-          <span class="badge px-2 py-1 mb-3" style="color:black;" >jornada</span>
-          <h2><a href="job-single.html">titulo</a> </h2>
-          <p class="meta">Publicado por: <strong>nombre</strong></p>
-          <p class="meta">Fecha: <strong>fecha</strong></p>
-      </div>
-      <div class="col-md-3 text-left">
-      <h3><span class="icon-map-marker"></span>&nbsp; ubicacion</h3>
-      <span class="icon-globe"></span>&nbsp;<span class="meta"> España</span>
-      </div>
-      <div class="col-md-3 text-md-right">
-          <strong class="text-black">suelto € &nbsp;</strong><br><br>
-          <!-- DEPENDIENDO DEL USUARIO QUE SEA, TENDRA UNOS PERMISOS U OTROS SOBRE LA OFERTA DE TRABAJO-->
-          <a ><button class="btn btn-primary">Eliminar inscripcion</button></a>
-      
-      </div>
-  </div>
-
+                <a *ngIf="oferta.empresa.imagen">
+                    <img src="{{ url + 'get-image-user/' + oferta.empresa.imagen }}" alt="Image" 
+                    class="img-thumbnail" width="130" draggable="false">
+                </a>
+    
+                <a *ngIf="!oferta.empresa.imagen">
+                  <img src="../../assets/images/default.png" alt="Image"  
+                  class="img-thumbnail" width="130" draggable="false">
+              </a>
+    
+            </div>
+            <div class="col-md-4">
+                <span class="badge px-2 py-1 mb-3" style="color:black;" [style.backgroundColor]="oferta.jornada.color" >{{oferta.jornada.jornada}}</span>
+                <h2><a href="job-single.html">{{oferta.titulo}}</a> </h2>
+                <p class="meta">Publicado por: <strong>{{oferta.empresa.nombre}}</strong></p>
+                <p class="meta">Fecha: <strong>{{oferta.created_at | amFromUnix | amLocale: "es" | amTimeAgo}}</strong></p>
+            </div>
+            <div class="col-md-3 text-left">
+            <h3><span class="icon-map-marker"></span>&nbsp; {{oferta.ubicacion}}</h3>
+            <span class="icon-globe"></span>&nbsp;<span class="meta"> España</span>
+            </div>
+            <div class="col-md-3 text-md-right">
+                <strong class="text-black">{{oferta.sueldo}} € &nbsp;</strong><br><br>
+                <!-- DEPENDIENDO DEL USUARIO QUE SEA, TENDRA UNOS PERMISOS U OTROS SOBRE LA OFERTA DE TRABAJO-->
+    
+                 <!--CANDIDATO YA INSCRITO-->
+                <a  *ngIf="identity && (identity.acceso == 3) && (listaIdOfertas.indexOf(oferta._id) >= 0) ">
+                    <button class="btn btn-danger">Eliminar inscripcion</button>
+                </a>
+                
+            </div>
+        </div>
+    </div>
 </div>

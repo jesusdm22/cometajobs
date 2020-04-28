@@ -1,45 +1,60 @@
 <!--SECCION OFERTAS-->
-<h5>Mis ofertas</h5>
+<h5>Mis ofertas
+  &nbsp;<button class="btn btn-success btn-sm"  [routerLink]="['/nueva-oferta']">Nueva oferta</button>
+</h5>
 <hr>
 <div class="mb-5">
-
-  <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3 sombra" >
-      <div class="col-md-2">
-
-          <a >
-              <img src="" alt="Image" 
-              class="img-thumbnail" width="130" draggable="false">
-          </a>
-
-          <a >
-            <img src="../../assets/images/default.png" alt="Image"  
-            class="img-thumbnail" width="130" draggable="false">
-        </a>
-
-      </div>
-      <div class="col-md-4">
-          <span class="badge px-2 py-1 mb-3" style="color:black;" >jornada</span>
-          <h2><a href="job-single.html">titulo</a> </h2>
-          <p class="meta">Publicado por: <strong>nombre</strong></p>
-          <p class="meta">Fecha: <strong>fecha</strong></p>
-      </div>
-      <div class="col-md-3 text-left">
-      <h3><span class="icon-map-marker"></span>&nbsp; ubicacion</h3>
-      <span class="icon-globe"></span>&nbsp;<span class="meta"> España</span>
-      </div>
-      <div class="col-md-3 text-md-right">
-          <strong class="text-black">suelto € &nbsp;</strong><br><br>
-          <!--ACCIONES-->
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" 
-            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Acciones
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" [routerLink]="['/editar-oferta']">Editar</a>
-              <a class="dropdown-item"[routerLink]="['/inscritos']">Inscritos</a>
-            </div>
+  <p *ngIf="listaIdOfertas.length == 0">Aun no has publicado ninguna oferta</p>
+  <div  *ngFor="let oferta of ofertas">
+   
+    
+      <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3 sombra"  *ngIf="identity && (identity.acceso == 2) && (listaIdOfertas.indexOf(oferta._id) >= 0)" >
+        <div class="col-md-2">
+         
+              <a *ngIf="oferta.empresa.imagen">
+                  <img src="{{ url + 'get-image-user/' + oferta.empresa.imagen }}" alt="Image" 
+                  class="img-thumbnail" width="130" draggable="false">
+              </a>
+  
+              <a *ngIf="!oferta.empresa.imagen">
+                <img src="../../assets/images/default.png" alt="Image"  
+                class="img-thumbnail" width="130" draggable="false">
+            </a>
+  
           </div>
-      
+          <div class="col-md-4">
+              <span class="badge px-2 py-1 mb-3" style="color:black;" [style.backgroundColor]="oferta.jornada.color" >{{oferta.jornada.jornada}}</span>
+              <h2><a href="job-single.html">{{oferta.titulo}}</a> </h2>
+              <p class="meta">Publicado por: <strong>{{oferta.empresa.nombre}}</strong></p>
+              <p class="meta">Fecha: <strong>{{oferta.created_at | amFromUnix | amLocale: "es" | amTimeAgo}}</strong></p>
+          </div>
+          <div class="col-md-3 text-left">
+          <h3><span class="icon-map-marker"></span>&nbsp; {{oferta.ubicacion}}</h3>
+          <span class="icon-globe"></span>&nbsp;<span class="meta"> España</span>
+          </div>
+          <div class="col-md-3 text-md-right">
+              <strong class="text-black">{{oferta.sueldo}} € &nbsp;</strong><br><br>
+                <!--ACCIONES-->
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" 
+                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Acciones
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" [routerLink]="['/editar-oferta/', oferta._id]">Editar</a>
+                  <a class="dropdown-item" [routerLink]="['/inscritos']">Inscritos</a>
+                </div>
+              </div>
+              
+          </div>
       </div>
   </div>
+</div>
+
+
+
+
+
+
+
+

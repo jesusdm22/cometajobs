@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Cometa Jobs &mdash; Registro</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon"  type="image/png"  href="../../assets/loginAssets/logos/cjLogoNegro.png" />
+</head>
+    
+
+<body >
+<div class="container" >
+
+    <div class="row">
+      <div class="col-md-12 order-md-1">
+        <h4 class="mb-3">Editar oferta</h4>
+
+       <!--FORMULARIO-->
+       <form #nuevaOfertaForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10"> 
+          <div class="row">
+
+          <!--Titulo-->
+            <div class="col-md-6 mb-3">
+              <label for="titulo">Titulo de la oferta:</label>
+              <input type="text" class="form-control" name="titulo" #titulo="ngModel" [(ngModel)]="oferta.oferta.titulo" placeholder="Titulo de la oferta"  required>
+              <span class="text-danger" *ngIf="!titulo.valid && titulo.touched">El titulo es obligatorio</span>
+            </div>
+
+
+              <!--Descripcion-->
+              <div class="col-md-6 mb-3">
+                  <label for="descripcion">Descripcion:</label>
+                  <textarea class="form-control d-block w-100" name="descripcion" #descripcion="ngModel" [(ngModel)]="oferta.oferta.descripcion" required>
+                  </textarea>
+              </div>
+          </div>
+
+
+          <div class="row">
+              <!--Experiencia-->
+              <div class="col-md-6 mb-3">
+                  <label for="experiencia">Años de experiencia requerida:</label>
+                  <input type="number" class="form-control" name="experiencia" #experiencia="ngModel" [(ngModel)]="oferta.oferta.experiencia"
+                   placeholder="2" >
+                   <span class="text-danger" *ngIf="!experiencia.valid && experiencia.touched">El correo no es correcto</span>
+              </div>
+
+              <!--Movil-->
+              <div class="col-md-6 mb-3">
+                  <label for="firstName">Salario mensual bruto:</label>
+                  <input type="number" class="form-control" name="sueldo" #sueldo="ngModel" [(ngModel)]="oferta.oferta.sueldo" 
+                  placeholder="1100"  required>
+                  <span class="text-danger" *ngIf="!sueldo.valid && sueldo.touched">El sueldo es obligatorio</span>
+              </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-5 mb-3">
+              <!--Tipo de perfil-->
+              <label for="ubicacion">Ubicacion:</label>
+              <select class="custom-select d-block w-100" name="ubicacion" #ubicacion="ngModel" [(ngModel)]="oferta.oferta.ubicacion" required>
+                <option value="{{ubicacion.ubicacion}}" *ngFor="let ubicacion of ubicaciones">{{ubicacion.ubicacion}}</option>
+              </select>
+
+            </div>
+
+            <div class="col-md-5 mb-3">
+                <!--Tipo de perfil-->
+                <label for="jornada">Jornada:</label>
+                <select class="custom-select d-block w-100" name="jornada" #jornada="ngModel" [(ngModel)]="oferta.oferta.jornada" required>
+                  <option value="{{jornada._id}}" *ngFor="let jornada of jornadas">{{jornada.jornada}}</option>
+                </select>
+  
+              </div>
+          </div>
+
+
+          <hr class="mb-4">
+          <!--Enviar form-->
+              <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!nuevaOfertaForm.form.valid">Publicar</button>
+          <hr class="mb-4">
+        </form>
+      </div>
+
+      <!--MENSAJES-->
+      <div class="alert alert-success" *ngIf="status === 'success'">
+        Oferta publicada con exito
+      </div>
+      
+      <div class="alert alert-danger" *ngIf="status === 'error'">
+         Error al publicar la oferta
+      </div>
+
+    </div>
+  </div>
+  </body>
+  </html>

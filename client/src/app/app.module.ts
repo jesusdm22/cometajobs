@@ -13,6 +13,8 @@ import { ErrorComponent } from './error/error.component';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 import { MisInscripcionesComponent } from './mis-inscripciones/mis-inscripciones.component';
 import { MisOfertasComponent } from './mis-ofertas/mis-ofertas.component';
+import { EditarOfertaComponent } from './editar-oferta/editar-oferta.component';
+import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MisOfertasComponent } from './mis-ofertas/mis-ofertas.component';
     ErrorComponent,
     EditarPerfilComponent,
     MisInscripcionesComponent,
-    MisOfertasComponent
+    MisOfertasComponent,
+    EditarOfertaComponent,
+    NuevaOfertaComponent
   ],
   imports: [
     BrowserModule,

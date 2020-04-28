@@ -83,6 +83,7 @@ function loginUser(req, res) {
 
     var login = params.login;
     var password = params.password;
+    var title = params.title;
 
     User.findOne({ login: login }, (err, user) => {
 

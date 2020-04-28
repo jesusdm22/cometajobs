@@ -82,7 +82,7 @@
                   </a>
 
                   <!--DUEÑO DE LA OFERTA-->
-                  <a *ngIf="identity && (identity.acceso == 2)"><button class="btn btn-warning">EDITAR</button></a>
+                  <a *ngIf="identity && identity.acceso == 2 && (identity._id === oferta.empresa._id)" [routerLink]="['/editar-oferta/', oferta._id]"><button class="btn btn-warning">EDITAR</button></a>
 
                    <!--CANDIDATO YA INSCRITO-->
                   <a  *ngIf="identity && (identity.acceso == 3) && (listaIdOfertas.indexOf(oferta._id) >= 0) ">

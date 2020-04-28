@@ -1,0 +1,10 @@
+body {
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding-top: 20%;
+    }
+}

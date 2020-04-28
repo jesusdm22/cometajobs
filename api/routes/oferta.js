@@ -13,7 +13,8 @@ api.post('/oferta', md_auth.ensureAuth, OfertaController.saveOferta); // Crear o
 api.get('/ofertas/:page?', OfertaController.getOfertas); // Obtener ofertas
 api.get('/oferta/:id', md_auth.ensureAuth, OfertaController.getOferta); // Obtener oferta en concreto
 api.get('/ofertas-user/:user/:page?', md_auth.ensureAuth, OfertaController.getOfertasByUser); // Obtener oferta de un usuario(empresa)
-api.put('/oferta/:id', md_auth.ensureAuth, OfertaController.updateOferta); // Editar oferta
+api.get('/misOfertas/:id?', md_auth.ensureAuth, OfertaController.getMisOfertas); //Obtener las ofertas del usuario actual
+api.put('/update-oferta/:id', md_auth.ensureAuth, OfertaController.updateOferta); // Editar oferta
 api.delete('/oferta/:id', md_auth.ensureAuth, OfertaController.deleteOferta); // Eliminar publicacion
 
 module.exports = api;

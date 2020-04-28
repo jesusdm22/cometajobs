@@ -100,43 +100,39 @@ function getOfertas(req, res) {
 }
 
 
-// Funcion para obtener una publicacion 
+// Funcion para obtener una oferta 
 function getOferta(req, res) {
 
-    var ofertaId = req.params.id; //Obtenemos el id de la publicacion por la url
+    var ofertaId = req.params.id; //Obtenemos el id de la oferta por la url
 
     Oferta.findById(ofertaId, (err, oferta) => { // La buscamos en la base de datos
         if (err)// Error en server
-            return res.status(500).send({ message: 'Error al devolver publicaciones' });
+            return res.status(500).send({ message: 'Error al devolver oferta' });
 
         if (!oferta) //No encontrado
-            return res.status(404).send({ message: 'La publicacion no existe' });
+            return res.status(404).send({ message: 'La oferta no existe' });
 
-        return res.status(200).send({ oferta }); //Devolvemos la publicacion
+        return res.status(200).send({ oferta }); //Devolvemos la oferta
     });
 }
 
-// Funcion para actualizar datos de una oferta
+// Funcion para actualizar datos de un usuario
 function updateOferta(req, res) {
 
-    var ofertaId = req.params.id; //Obtenemos el id de la oferta por la url
-    var update = req.body; //Datos nuevos que nos llegan por post
+    var ofertaId = req.params.id;
+    var update = req.body;
 
-
-    // Si no hay token
-    if (!req.user.sub)
-        return res.status(500).send({ message: 'No tienes permiso para actualizar los datos de esta oferta' });
-
-    // Buscamos y actualizamos ({new:true} devuelve la oferta actualizado, false el original)
+    // Si son iguales, buscamos y actualizamos ({new:true} devuelve la oferta actualizado, false el original)
     Oferta.findByIdAndUpdate(ofertaId, update, { new: true, useFindAndModify: false }, (err, ofertaUpdated) => {
 
         if (err)// Si hay error
             return res.status(500).send({ message: 'Error en la peticion' });
-        if (!ofertaUpdated)// Si no se ha podido actualizar la oferta
+        if (!ofertaUpdated)// Si no se ha podido actualizar el usuario
             return res.status(404).send({ message: 'No se ha podido actualizar la oferta' });
 
-        return res.status(200).send({ message: ofertaUpdated }); // Devolvemos la oferta
+        return res.status(200).send({ message: ofertaUpdated }); // Devolvemos el usuario
     });
+
 }
 
 // Funcion para eliminar una oferta
@@ -167,11 +163,11 @@ function getOfertasByUser(req, res) {
     }
 
 
-    Oferta.find({ empresa: user }).sort('-created_at').populate('user').paginate(page, itemsPerPage, (err, ofertas, total) => {
+    Oferta.find({ empresa: user }).populate('user').paginate(page, itemsPerPage, (err, ofertas, total) => {
         if (err)
-            return res.status(500).send({ message: 'Error al devolver publicaciones' });
+            return res.status(500).send({ message: 'Error al devolver ofertas' });
         if (!ofertas)
-            return res.status(404).send({ message: 'No hay publicaciones' });
+            return res.status(404).send({ message: 'No hay ofertas' });
 
         return res.status(200).send({
             total_items: total,
@@ -185,11 +181,31 @@ function getOfertasByUser(req, res) {
 
 }
 
+
+//Funcion para devolver el listado de inscripciones del usuario logueado
+function getMisOfertas(req, res) {
+
+    var userId = req.user.sub; // Usuario logueado (id)
+
+    var find = Oferta.find({ empresa: userId });
+
+    // Query
+    find.exec((err, ofertas) => {
+        if (err) // Error en el servidor
+            return res.status(500).send({ message: 'Error en el servidor' });
+        if (!ofertas)// Lista vacia
+            return res.status(404).send({ message: 'No tienes ninguna oferta' });
+
+        return res.status(200).send({ ofertas }); // Mostramos la lista de inscripciones
+    });
+}
+
 module.exports = {
     saveOferta,
     getOfertas,
     getOferta,
     updateOferta,
     deleteOferta,
-    getOfertasByUser
+    getOfertasByUser,
+    getMisOfertas
 }

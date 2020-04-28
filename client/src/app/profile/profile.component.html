@@ -5,7 +5,8 @@
         <div class="col-lg-4">
           <div class="row">
             <div class="col-6">
-              <h1>Mi perfil</h1> <button class="btn btn-sm btn-warning" *ngIf="identity._id == user._id" [routerLink]="['/editar-perfil']">Editar</button>
+              <h1>Mi perfil</h1>
+              <button class="btn btn-sm btn-warning" *ngIf="this.identity._id == user._id" [routerLink]="['/editar-perfil']">Editar</button>
             </div>
           </div>
         </div>
@@ -31,9 +32,9 @@
                 y que el usuario que este identificado coincida con el que queremos ver-->
                 
             <!--Para candidatos-->
-            <app-mis-inscripciones *ngIf="identity && (identity.acceso == 3) && (user._id == identity._id)"></app-mis-inscripciones>
+            <app-mis-inscripciones *ngIf="this.identity && (this.identity.acceso == 3) && (this.user._id == this.identity._id)"></app-mis-inscripciones>
             <!--Para empresas-->
-            <app-mis-ofertas *ngIf="identity && (identity.acceso == 2) && (user._id == identity._id)"></app-mis-ofertas>
+            <app-mis-ofertas *ngIf="this.identity && (this.identity.acceso == 2) && (this.user._id == this.identity._id)"></app-mis-ofertas>
             
           </div>  
           
