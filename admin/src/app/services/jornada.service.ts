@@ -18,14 +18,26 @@ export class JornadaService {
    }
 
    //Metodo para guardar jornada en la BD
-   saveJornada(jornada: Jornada): Observable<any>{ //Esto devuelve un observable
+   saveJornada(jornada: Jornada, token): Observable<any>{ //Esto devuelve un observable
       let params = JSON.stringify(jornada); // Convertimos el JSON a string (todos los parametros que nos llegan)
-      let headers = new HttpHeaders().set('Content-Type', 'application/json'); //Indicamos el tipo de cabecera
-      
+      let headers = new HttpHeaders().set('Content-Type', 'application/json')//Indicamos el tipo de cabecera
+                                      .set('Authorization', token);
       //Devolvemos la respuesta haciendo una llamada por post usando la URL configurada en global.ts, 
       //le pasamos los parametrosv del form y las cabeceras
       return this._http.post(this.url+'jornada', params, {headers: headers});
    }
+
+
+   updateJornada(jornada:Jornada, token): Observable<any>{ //Esto devuelve un observable
+    let params = JSON.stringify(jornada); // Convertimos el JSON a string (todos los parametros que nos llegan)
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                    .set('Authorization', token); //Indicamos el tipo de cabecera
+    
+                                    
+    //Devolvemos la respuesta haciendo una llamada por post usando la URL configurada en global.ts, 
+    //le pasamos los parametrosv del form y las cabeceras
+    return this._http.put(this.url+'jornada/'+jornada._id, params, {headers: headers});
+ }
 
 
 
@@ -42,14 +54,13 @@ export class JornadaService {
 
 
   //Metodo para pedir peticion HTTP al API y obtener jornada por ID
-  getJornada(token, page = 1, jornadaId): Observable<any> {
-    let headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', token);
+  getJornada(id, token):Observable<any> {
+    
+    //Cabeceras http
+    let headers = new HttpHeaders().set('Content-Type', 'application/json') //Cabeceras
+                               .set('Authorization', token);
 
-    return this._http.get(this.url + 'jornada/'+jornadaId + '/' + page, {
-      headers: headers,
-    });
+    return this._http.get(this.url+'jornada/'+id, {headers:headers});
   }
 
 

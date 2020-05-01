@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Cometa Jobs &mdash; Administracion</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon"  type="image/png"  href="../../assets/logos/cjLogoNegro.png" />
+</head>
+    
+
+<body>
+<div class="container">
+
+    <div class="row">
+      <div class="col-md-12 order-md-1"><br>
+        <h4 class="mb-3">Nueva jornada</h4>
+
+       <!--FORMULARIO-->
+       <form #nuevaJornadaForm="ngForm"  (ngSubmit)="onSubmit(nuevaJornadaForm)" class="col-lg-10"> 
+          <div class="row">
+
+          <!--Nombre-->
+            <div class="col-md-6 mb-3">
+              <label for="nombreJornada">Jornada:</label>
+              <input type="text" class="form-control" name="nombreJornada" #nombreJornada="ngModel" [(ngModel)]="jornada.jornada" placeholder="Jornada"  required>
+              <span class="text-danger" *ngIf="!nombreJornada.valid && nombreJornada.touched">La jornada es obligatoria</span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="colorJornada">Color distintivo:</label>
+                <input type="color" class="form-control" name="colorJornada" #colorJornada="ngModel" [(ngModel)]="jornada.color"  required>
+              </div>
+
+          </div>
+          <hr class="mb-4">
+          <!--Enviar form-->
+              <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!nuevaJornadaForm.form.valid">Guardar</button>
+          <hr class="mb-4">
+        </form>
+      </div>
+
+      <!--MENSAJES-->
+      <div class="alert alert-success" *ngIf="status === 'success'">
+         Datos guardados con exito
+      </div>
+      
+      <div class="alert alert-danger" *ngIf="status === 'error'">
+         Error al guardar los datos
+      </div>
+
+    </div>
+  </div>
+  </body>
+  </html>

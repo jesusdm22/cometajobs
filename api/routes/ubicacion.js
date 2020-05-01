@@ -10,7 +10,7 @@ var md_auth = require('../middlewares/authenticated');
 api.post('/ubicacion', md_auth.ensureAuth, UbicacionController.saveUbicacion); // Crear ubicacion
 api.get('/ubicaciones/:page?', UbicacionController.getUbicaciones); // Obtener ubicaciones
 api.get('/ubicacion/:id', md_auth.ensureAuth, UbicacionController.getUbicacion); // Obtener ubicacion en concreto
-api.put('/ubicacion/:id', md_auth.ensureAuth, UbicacionController.updateUbicacion); // Editar ubicacion
+api.put('/update-ubicacion/:id', md_auth.ensureAuth, UbicacionController.updateUbicacion); // Editar ubicacion
 api.delete('/ubicacion/:id', md_auth.ensureAuth, UbicacionController.deleteUbicacion); // Eliminar ubicacion
 
 module.exports = api;

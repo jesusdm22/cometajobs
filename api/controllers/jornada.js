@@ -41,20 +41,15 @@ function getJornadas(req, res) {
     if (req.params.page)
         page = req.params.page;
 
-    var itemsPerPage = 4;
 
 
-        Jornada.find().paginate(page, itemsPerPage, (err, jornadas, total) => {
+        Jornada.find().exec((err, jornadas, total) => {
                 if (err)
                     return res.status(500).send({ message: 'Error al devolver las jornadas' });
                 if (!jornadas)
                     return res.status(404).send({ message: 'No hay jornadas' });
 
                 return res.status(200).send({
-                    total_items: total,
-                    pages: Math.ceil(total / itemsPerPage),
-                    page: page,
-                    items_per_page: itemsPerPage,
                     jornadas
 
                 });
@@ -65,15 +60,17 @@ function getJornadas(req, res) {
 // Funcion para obtener una jornada en concreto 
 function getJornada(req, res) {
 
+    
     var jornadaId = req.params.id; //Obtenemos el id de la jornada por la url
-
     Jornada.findById(jornadaId, (err, jornada) => { // La buscamos en la base de datos
+      
         if (err)// Error en server
             return res.status(500).send({ message: 'Error al devolver publicaciones' });
 
         if (!jornada) //No encontrado
             return res.status(404).send({ message: 'La publicacion no existe' });
 
+       
         return res.status(200).send({ jornada }); //Devolvemos la jornada
     });
 }
@@ -84,7 +81,6 @@ function updateJornada(req, res) {
    
     var jornadaId = req.params.id;
     var update = req.body;
-
 
     Jornada.find({
         $or: [

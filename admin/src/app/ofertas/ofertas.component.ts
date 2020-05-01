@@ -79,7 +79,7 @@ export class OfertasComponent implements OnInit, DoCheck {
   }
 
   editarOferta(idOferta){
-
+    this._router.navigate(['/editar-oferta/', idOferta]);
   }
 
   agregarOferta(){

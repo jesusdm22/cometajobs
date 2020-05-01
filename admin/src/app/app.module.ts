@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
@@ -12,6 +12,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
 import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
+import { EditarOfertaComponent } from './editar-oferta/editar-oferta.component';
+import { EditarUbicacionComponent } from './editar-ubicacion/editar-ubicacion.component';
+import { NuevaUbicacionComponent } from './nueva-ubicacion/nueva-ubicacion.component';
+import { NuevaJornadaComponent } from './nueva-jornada/nueva-jornada.component';
+import { EditarJornadaComponent } from './editar-jornada/editar-jornada.component';
+
 
 
 @NgModule({
@@ -24,12 +30,19 @@ import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
     LoginComponent,
     EditarUsuarioComponent,
     NuevoUsuarioComponent,
-    NuevaOfertaComponent
+    NuevaOfertaComponent,
+    EditarOfertaComponent,
+    EditarUbicacionComponent,
+    NuevaUbicacionComponent,
+    NuevaJornadaComponent,
+    EditarJornadaComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

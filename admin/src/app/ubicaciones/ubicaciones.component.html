@@ -1,1 +1,22 @@
 <h1 class="mt-4">{{title}}</h1>
+<hr>
+<button class="btn btn-success btn-sm" (click)="agregarUbicacion()">Agregar ubicacion</button>
+<br><br>
+<table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Ubicacion</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ubicacion of ubicaciones">
+        <td>{{ubicacion.ubicacion}}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarUbicacion(ubicacion._id)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteUbicacion(ubicacion._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

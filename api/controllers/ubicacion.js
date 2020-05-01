@@ -40,17 +40,13 @@ function getUbicaciones(req, res) {
 
     var itemsPerPage = 4;
 
-        Ubicacion.find().paginate(page, itemsPerPage, (err, ubicaciones, total) => {
+        Ubicacion.find().exec((err, ubicaciones, total) => {
                 if (err)
                     return res.status(500).send({ message: 'Error al devolver las ubicaciones' });
                 if (!ubicaciones)
                     return res.status(404).send({ message: 'No hay ubicaciones' });
 
                 return res.status(200).send({
-                    total_items: total,
-                    pages: Math.ceil(total / itemsPerPage),
-                    page: page,
-                    items_per_page: itemsPerPage,
                     ubicaciones
 
                 });
@@ -81,11 +77,10 @@ function updateUbicacion(req, res) {
     var ubicacionId = req.params.id;
     var update = req.body;
 
-
     Ubicacion.find({ ubicacion: update.ubicacion}).exec((err, ubicaciones) => {
 
         var ubicacion_isset = false;
-
+        
         ubicaciones.forEach((ubicacion) => {
             if (ubicacion && ubicacion._id != ubicacionId)
             ubicacion_isset = true;
@@ -102,7 +97,7 @@ function updateUbicacion(req, res) {
             if (!ubicacionUpdated)// Si no se ha podido actualizar la jornada
                 return res.status(404).send({ message: 'No se ha podido actualizar la ubicacion' });
 
-            return res.status(200).send({ message: ubicacionUpdated }); // Devolvemos la ubicacion
+            return res.status(200).send({ ubicacion: ubicacionUpdated }); // Devolvemos la ubicacion
         });
     });
 }

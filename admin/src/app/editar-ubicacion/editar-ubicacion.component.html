@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Cometa Jobs &mdash; Administracion</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon"  type="image/png"  href="../../assets/logos/cjLogoNegro.png" />
+</head>
+    
+
+<body>
+<div class="container">
+
+    <div class="row">
+      <div class="col-md-12 order-md-1"><br>
+        <h4 class="mb-3">Datos de ubicacion</h4>
+
+       <!--FORMULARIO-->
+       <form #userEditForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10"> 
+          <div class="row">
+
+          <!--Nombre-->
+            <div class="col-md-6 mb-3">
+              <label for="nombreUbicacion">Ubicacion:</label>
+              <input type="text" class="form-control" name="nombreUbicacion" #nombreUbicacion="ngModel" [(ngModel)]="ubicacion.ubicacion" placeholder="Nombre completo"  required>
+              <span class="text-danger" *ngIf="!nombreUbicacion.valid && nombreUbicacion.touched">El nombre es obligatorio</span>
+            </div>
+
+          </div>
+          <hr class="mb-4">
+          <!--Enviar form-->
+              <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!userEditForm.form.valid">Actualizar</button>
+          <hr class="mb-4">
+        </form>
+      </div>
+
+      <!--MENSAJES-->
+      <div class="alert alert-success" *ngIf="status === 'success'">
+         Datos actualizados con exito
+      </div>
+      
+      <div class="alert alert-danger" *ngIf="status === 'error'">
+         Error al actualizar los datos
+      </div>
+
+    </div>
+  </div>
+  </body>
+  </html>

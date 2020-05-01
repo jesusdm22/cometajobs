@@ -1,1 +1,24 @@
 <h1 class="mt-4">{{title}}</h1>
+<hr>
+<button class="btn btn-success btn-sm" (click)="agregarJornada()">Agregar jornada</button>
+<br><br>
+<table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Jornada</th>
+        <th scope="col">Color distintivo</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let jornada of jornadas">
+        <td>{{jornada.jornada}}</td>
+        <td [ngStyle]="{'background-color': jornada.color}">{{jornada.jornada}}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarJornada(jornada._id)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteJornada(jornada._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
