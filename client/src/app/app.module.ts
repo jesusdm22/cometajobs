@@ -15,6 +15,7 @@ import { MisInscripcionesComponent } from './mis-inscripciones/mis-inscripciones
 import { MisOfertasComponent } from './mis-ofertas/mis-ofertas.component';
 import { EditarOfertaComponent } from './editar-oferta/editar-oferta.component';
 import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
+import { OfertaComponent } from './oferta/oferta.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
     MisInscripcionesComponent,
     MisOfertasComponent,
     EditarOfertaComponent,
-    NuevaOfertaComponent
+    NuevaOfertaComponent,
+    OfertaComponent
   ],
   imports: [
     BrowserModule,

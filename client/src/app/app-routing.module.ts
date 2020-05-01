@@ -8,6 +8,9 @@ import { ErrorComponent } from './error/error.component';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 import { EditarOfertaComponent } from './editar-oferta/editar-oferta.component';
 import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
+import { OfertaComponent } from './oferta/oferta.component';
+
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -18,6 +21,7 @@ const routes: Routes = [
   {path: 'editar-perfil', component: EditarPerfilComponent},
   {path: 'editar-oferta/:id', component: EditarOfertaComponent},
   {path: 'nueva-oferta', component: NuevaOfertaComponent},
+  {path: 'oferta/:id', component: OfertaComponent},
   {path: 'error', component: ErrorComponent}
 ];
 

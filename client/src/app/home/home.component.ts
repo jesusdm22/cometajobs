@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Ubicacion } from '../models/ubicacion';
 import { Jornada } from '../models/jornada';
 import { Oferta } from '../models/oferta';
+import { Form } from '@angular/forms';
 import { Inscripcion } from '../models/inscripcion';
 
 @Component({
@@ -155,6 +156,13 @@ export class HomeComponent implements OnInit, DoCheck {
           console.log(<any>error);
         }
       );
+  }
+
+  onSubmit(form){
+    var texto = form.value.titulo;
+    var ubicacion = form.value.ubicacion;
+    var jornada = form.value.jornada;
+    
   }
 
 

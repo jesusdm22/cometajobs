@@ -10,7 +10,7 @@ var mongoosePagination = require('mongoose-pagination');
 var Oferta = require('../models/oferta');
 var User = require('../models/usuario');
 
-//Crear publicacion
+//Crear oferta
 function saveOferta(req, res) {
 
     var params = req.body; // Recogemos los datos desde post 
@@ -38,7 +38,37 @@ function saveOferta(req, res) {
 
         return res.status(200).send({ oferta: ofertaStored });
     });
+}
 
+
+//Crear publicacion
+function saveOfertaAdmin(req, res) {
+
+    var params = req.body; // Recogemos los datos desde post 
+    if (!params.titulo)
+        return res.status(200).send({ message: 'Debes enviar un titulo' });
+
+    // Seteamos la publicacion con los datos que llegaron por post
+    var oferta = new Oferta();
+    oferta.titulo = params.titulo;
+    oferta.descripcion = params.descripcion;
+    oferta.experiencia = params.experiencia;
+    oferta.sueldo = params.sueldo;
+    oferta.ubicacion = params.ubicacion;
+    oferta.jornada = params.jornada;
+    oferta.created_at = moment().unix();
+    oferta.empresa = params.empresa;
+
+    oferta.save((err, ofertaStored) => {
+
+        if (err)
+            return res.status(500).send({ message: 'Error al guardar la oferta' });
+
+        if (!ofertaStored)
+            return res.status(404).send({ message: 'La oferta no se ha guardado' });
+
+        return res.status(200).send({ oferta: ofertaStored });
+    });
 }
 
 
@@ -105,7 +135,7 @@ function getOferta(req, res) {
 
     var ofertaId = req.params.id; //Obtenemos el id de la oferta por la url
 
-    Oferta.findById(ofertaId, (err, oferta) => { // La buscamos en la base de datos
+    Oferta.findById(ofertaId).populate('empresa jornada').exec((err, oferta) => { // La buscamos en la base de datos
         if (err)// Error en server
             return res.status(500).send({ message: 'Error al devolver oferta' });
 
@@ -202,6 +232,7 @@ function getMisOfertas(req, res) {
 
 module.exports = {
     saveOferta,
+    saveOfertaAdmin,
     getOfertas,
     getOferta,
     updateOferta,

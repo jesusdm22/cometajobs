@@ -83,7 +83,7 @@ function getMisInscripciones(req, res) {
     var find = Inscripcion.find({ usuario: userId });
 
     // Query
-    find.populate('usuario oferta').exec((err, inscripciones) => {
+    find.populate('usuario oferta empresa').exec((err, inscripciones) => {
         if (err) // Error en el servidor
             return res.status(500).send({ message: 'Error en el servidor' });
         if (!inscripciones)// Lista vacia

@@ -46,6 +46,7 @@ export class MisInscripcionesComponent implements OnInit {
     this.url = GLOBAL.url;
     this.identity = this._usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
+    
   }
   
 
@@ -54,6 +55,7 @@ export class MisInscripcionesComponent implements OnInit {
     this.getJornadas();
     this.getOfertas();
     this.misInscripciones();
+
   }
 
   ngDoCheck() {
@@ -120,7 +122,6 @@ export class MisInscripcionesComponent implements OnInit {
     this._inscripcionService.getInscripcionesByUser(this.token, 1, this.identity._id).subscribe(
       (response) => {
         if (response) {
-          
          this.inscripcionesArray = response.inscripciones;
          console.log("Inscripciones recogidas con exito");
 
@@ -139,6 +140,24 @@ export class MisInscripcionesComponent implements OnInit {
         this.status = 'error';
       }
     );
+  }
+
+  deleteInscripcion(idInscripcion){
+    //Preguntamos al usuario si desea eliminar la inscripcion
+    var respuesta = window.confirm("¿Esta seguro de eliminar esta inscripcion?");
+   
+    //Si la respuesta es si
+    if(respuesta){ //Llamamos al servicio, elimamos y recargamos
+      this._inscripcionService.deleteInscripcion(this.token, idInscripcion).subscribe(
+        response => {
+          window.location.reload();
+        },
+
+        error => {
+          console.log(<any>error);
+        }
+      );
+    }
   }
 
  

@@ -21,8 +21,8 @@ api.post('/registrar', UsuarioController.saveUser); // Guardar un usuario (regis
 api.post('/login', UsuarioController.loginUser); // Login de un usuario (login)
 api.get('/usuario/:id', md_auth.ensureAuth, UsuarioController.getUser); // Ver un usuario
 api.get('/usuarios/:page?', md_auth.ensureAuth, UsuarioController.getUsers); // Ver usuarios
+api.get('/empresas/:page?', md_auth.ensureAuth, UsuarioController.getEmpresas); // Ver empresas
 api.delete('/usuario/:id', md_auth.ensureAuth, UsuarioController.deleteUser); // Eliminar usuario
-api.get('/counters/:id?', md_auth.ensureAuth, UsuarioController.getCounters); // Obtener estadisticas
 api.put('/update-user/:id', md_auth.ensureAuth, UsuarioController.updateUser); // Actualizar datos de usuario
 api.post('/update-image-user/:id', [md_auth.ensureAuth, md_upload], UsuarioController.uploadImage); //Aqui usaremos dos middlewares // Subir imagen de usuario
 api.get('/get-image-user/:imageFile', UsuarioController.getImageFile); // Ver imagen de usuario

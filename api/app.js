@@ -14,8 +14,7 @@ var rutas_oferta = require('./routes/oferta.js');
 var rutas_jornada = require('./routes/jornada.js');
 var rutas_ubicacion = require('./routes/ubicacion.js');
 var rutas_inscripcion = require('./routes/inscripcion.js');
-//var publication_routes = require('./routes/publication');
-//var message_routes = require('./routes/message');
+var rutas_busqueda = require('./routes/busqueda.js');
 
 // Middlewares (Metodo que se ejecuta antes de una peticion)
 app.use(bodyParser.urlencoded({extended:false})); // Configuracion de bodyParser
@@ -38,8 +37,8 @@ app.use('/api', rutas_oferta);
 app.use('/api', rutas_jornada);
 app.use('/api', rutas_ubicacion);
 app.use('/api', rutas_inscripcion);
-//app.use('/api', publication_routes);
-//app.use('/api', message_routes);
+app.use('/api', rutas_busqueda);
+
 
 // Exportar la app
 module.exports = app;

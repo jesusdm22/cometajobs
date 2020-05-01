@@ -166,74 +166,45 @@ function getUsers(req, res) {
         if (!users)
             res.status(404).send({ message: 'No hay usuarios disponibles' });
 
-        followUsersId(identity_user_id).then((value) => {
-
-            return res.status(200).send({
+        return res.status(200).send({
                 users,
                 total,
                 pages: Math.ceil(total / itemsPerPage) //Numero de paginas = total de usuarios / usuarios por pagina
-            });
+         
         });
 
     });
 }
 
-//Funcion sincrona 
-async function followUsersId(user_id) {
-    var following = await Follow.find({ user: user_id }).select({ _id: 0, __v: 0, user: 0 }).exec().then((follows) => {
-        var follows_clean = [];
-        follows.forEach((follow) => {
-            follows_clean.push(follow.followed);
-        });
-        return follows_clean;
-    }).catch((err) => {
-        return handleError(err);
-    });
 
+// Funcion para devolver un listado de usuarios paginado
+function getEmpresas(req, res) {
 
-    var followed = await Follow.find({ followed: user_id }).select({ _id: 0, __v: 0, followed: 0 }).exec().then((follows) => {
-        var follows_clean = [];
-
-        follows.forEach((follow) => {
-            follows_clean.push(follow.user);
-        });
-
-        return follows_clean;
-
-    }).catch((err) => {
-        return handleError(err);
-    });
-
-
-    return {
-        following: following,
-        followed: followed
-    };
-}
-
-//Contadores
-const getCounters = (req, res) => {
-    let userId = req.user.sub;
-    if (req.params.id) {
-        userId = req.params.id;
+    var page = 1;
+    if (req.params.page) {
+        page = req.params.page;
     }
-    getCountFollow(userId).then((value) => {
-        return res.status(200).send(value);
-    })
+
+    var itemsPerPage = 5; // Usuarios por pagina
+
+    // Ordenamos por id y le decimos que pagine 
+    User.find({acceso: '2'}).sort('_id').paginate(page, itemsPerPage, (err, empresas, total) => {
+        if (err)
+            res.status(500).send({ message: 'Error en la peticion' });
+        if (!empresas)
+            res.status(404).send({ message: 'No hay empresas disponibles' });
+
+        return res.status(200).send({
+                empresas,
+                total,
+                pages: Math.ceil(total / itemsPerPage) //Numero de paginas = total de usuarios / usuarios por pagina
+         
+        });
+
+    });
 }
 
-const getCountFollow = async (user_id) => {
-    try {
-        // Lo hice de dos formas. "following" con callback de countDocuments y "followed" con una promesa
-        let following = await Follow.countDocuments({ "user": user_id }, (err, result) => { return result });
-        let followed = await Follow.countDocuments({ "followed": user_id }).then(count => count);
-        let Ofertas = await Oferta.countDocuments({ 'user': user_id }).then(count => count);
-        return { following, followed, Ofertas }
 
-    } catch (e) {
-        console.log(e);
-    }
-}
 
 // Funcion para eliminar un usuario
 function deleteUser(req, res) {
@@ -256,14 +227,25 @@ function updateUser(req, res) {
     var userId = req.params.id;
     var update = req.body;
 
-    // borrar propiedad password
-    delete update.password;
-
-    // Si el id del usuario es diferente al del token (es pq otro usuario esta intentado editarnos nuestros datos)
-    if (userId != req.user.sub)
-        return res.status(500).send({ message: 'No tienes permiso para actualizar los datos del usuario' });
+    //Encriptamos el password que nos llega  
+    //update.password = bcrypt.hashSync(update.password);
 
 
+    //Necesitamos comprobar si la contraseña que nos llega es igual a la ya almacenada
+    User.findById(userId, (err, user) => {
+        if (!user) return res.status(404).send({ message: "Usuario no encontrado" });
+        if (err) return res.status(500).send({ message: "Error en la peticion" });
+
+       //Si la contraseña que nos llega es diferente de la que hay en el servidor
+       //es por que el usuario la ha cambiado
+       if (update.password != user.password)
+            //Por tanto, la contraseña a actualizar, es la que nos llega, pero encriptada
+            update.password = update.password = bcrypt.hashSync(update.password);
+        
+    });
+
+
+    //Buscamos duplicidad en el login y en el email
     User.find({
         $or: [
             { email: update.email },
@@ -309,10 +291,6 @@ function uploadImage(req, res) {
         var extension = file_name.split('.')[1]; // La extension se encuentra en la posicion 1 del array del nombre spliteado por .
         console.log(extension);
 
-        // Si el id del usuario es diferente al del token (es pq otro usuario esta intentado editarnos nuestros datos)
-        if (userId != req.user.sub) {
-            return removeFileOfUploads(res, file_path, 'No tienes permiso para actualizar los datos del usuario');
-        }
 
         // Comprobamos extensiones
         if (extension == 'png' || extension == 'jpg' || extension == 'jpeg' || extension == 'gif') {
@@ -366,7 +344,7 @@ module.exports = {
     loginUser,
     getUser,
     getUsers,
-    getCounters,
+    getEmpresas,
     deleteUser, 
     updateUser,
     uploadImage,

@@ -1,0 +1,34 @@
+<h1 class="mt-4">{{title}}</h1>
+<hr>
+<button class="btn btn-success btn-sm" (click)="agregarOferta()">Agregar oferta</button>
+<br><br>
+<table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Empresa</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Experiencia (años)</th>
+        <th scope="col">Sueldo (€/mes)</th>
+        <th scope="col">Ubicacion</th>
+        <th scope="col">Jornada</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let oferta of ofertas">
+        <td>{{oferta.empresa.nombre}}</td>
+        <td>{{oferta.titulo}}</td>
+        <td>{{oferta.descripcion}}</td>
+        <td>{{oferta.experiencia}}</td>
+        <td>{{oferta.sueldo}} €/mes</td>
+        <td>{{oferta.ubicacion}}</td>
+        <td [ngStyle]="{'background-color': oferta.jornada.color}">{{oferta.jornada.jornada}}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarOferta(oferta._id)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteOferta(oferta._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

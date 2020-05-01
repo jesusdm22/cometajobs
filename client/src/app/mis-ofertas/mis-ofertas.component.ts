@@ -151,7 +151,5 @@ export class MisOfertasComponent implements OnInit {
         }
       );
     }
-      
-    
   }
 }

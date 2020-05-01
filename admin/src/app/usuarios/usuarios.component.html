@@ -1,0 +1,40 @@
+<h1 class="mt-4">{{title}}</h1>
+<hr>
+<button class="btn btn-success btn-sm" (click)="agregarUsuario()">Agregar usuario</button>
+<br><br>
+<table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Imagen</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Login</th>
+        <th scope="col">Biografia</th>
+        <th scope="col">Movil</th>
+        <th scope="col">Email</th>
+        <th scope="col">Acceso</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>
+          <img src="{{url + 'get-image-user/' + usuario.imagen}}" class="img-thumbnail" width="50" draggable="false" *ngIf="usuario.imagen">
+          <img src="../../assets/images/defaultUser.jpg" class="img-thumbnail" width="50" draggable="false" *ngIf="!usuario.imagen">
+        </td>
+        <td>{{usuario.nombre}}</td>
+        <td>{{usuario.login}}</td>
+        <td>{{usuario.biografia}}</td>
+        <td>{{usuario.movil}}</td>
+        <td>{{usuario.email}}</td>
+        <td *ngIf="usuario.acceso == 0">Deshabilitado</td>
+        <td *ngIf="usuario.acceso == 1">Administrador</td>
+        <td *ngIf="usuario.acceso == 2">Empresa</td>
+        <td *ngIf="usuario.acceso == 3">Candidato</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarUsuario(usuario._id)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteUsuario(usuario._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
