@@ -1,4 +1,4 @@
-# cometajobs
+# Cometa Jobs
 
 Necesario iniciar tanto la API, como el cliente, y el panel de administracion.
 <br><br>
