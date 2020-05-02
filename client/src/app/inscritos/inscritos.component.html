@@ -1,0 +1,23 @@
+<div class="container">
+    <h2>Inscritos en {{oferta.titulo}}</h2>
+    <p class="text-muted lead">
+        <img *ngIf="oferta.empresa.imagen"src="{{url + 'get-image-user/' + oferta.empresa.imagen}}"  class="img-thumbnail" width="50" draggable="false">
+        {{oferta.empresa.nombre}}
+    </p>
+    <br>
+    <div class="col-md-8">
+        <ul class="list-group">
+            <div *ngIf="usuariosInscritos.length > 0">
+                <li class="list-group-item d-flex " *ngFor="let usuario of usuariosInscritos">
+                    <img *ngIf="usuario.usuario.imagen"src="{{url + 'get-image-user/' + usuario.usuario.imagen}}"  class="img-thumbnail" width="50" draggable="false">
+                     <span class="nombreInscrito">{{usuario.usuario.nombre}}</span>
+                    <span class="btn btn-primary ml-auto" [routerLink]="['/profile/', usuario.usuario._id]">Ver candidato</span>
+                </li>
+            </div>
+            <p *ngIf="usuariosInscritos.length <= 0">Aun no se ha inscrito nadie a esta oferta.</p>
+        </ul>
+    </div>
+
+
+</div>
+

@@ -29,8 +29,8 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item"  [routerLink]="['/profile/', identity._id]">Mi perfil</a>
             <div class="dropdown-divider"></div>
+            <a class="dropdown-item"  *ngIf="identity.acceso == '1'" href="localhost:4300">Admin</a>
             <a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Cerrar sesion</a>
-            <a class="dropdown-item"  [routerLink]="['/admin']">Admin</a>
           </div>
       </div>
 

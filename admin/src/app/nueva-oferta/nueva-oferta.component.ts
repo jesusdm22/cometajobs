@@ -35,9 +35,19 @@ export class NuevaOfertaComponent implements OnInit {
     this.token = this._usuarioService.getToken();
     this.url = GLOBAL.url;
     this.oferta = new Oferta("","","","","","","","","");
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
   }
 
   ngOnInit(): void {
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
     this.getJornadas();
     this.getUbicaciones();
     this.getEmpresas();

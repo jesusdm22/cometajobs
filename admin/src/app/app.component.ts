@@ -19,6 +19,11 @@ export class AppComponent {
 
   ngOnInit(){
     this.identity = this._usuarioService.getIdentity();
+    //Si no hay sesion y el usuario no es administrador redirigimos al login
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+      
+    }
     console.log(this.identity);
   }
 

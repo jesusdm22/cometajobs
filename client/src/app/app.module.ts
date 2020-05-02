@@ -16,6 +16,7 @@ import { MisOfertasComponent } from './mis-ofertas/mis-ofertas.component';
 import { EditarOfertaComponent } from './editar-oferta/editar-oferta.component';
 import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
 import { OfertaComponent } from './oferta/oferta.component';
+import { InscritosComponent } from './inscritos/inscritos.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { OfertaComponent } from './oferta/oferta.component';
     MisOfertasComponent,
     EditarOfertaComponent,
     NuevaOfertaComponent,
-    OfertaComponent
+    OfertaComponent,
+    InscritosComponent
   ],
   imports: [
     BrowserModule,

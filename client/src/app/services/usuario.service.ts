@@ -103,11 +103,11 @@ export class UsuarioService {
   }
 
   //Metodo para devolver usuarios
-  getUsers(page = null):Observable<any> {
+  getUsers(token, page = null):Observable<any> {
 
     //Cabeceras http
     let headers = new HttpHeaders().set('Content-Type', 'application/json') //Cabeceras
-                               .set('Authorization',' this.getToken()');
+                               .set('Authorization', token);
 
     return this._http.get(this.url+'usuarios/'+page, {headers:headers});
   }

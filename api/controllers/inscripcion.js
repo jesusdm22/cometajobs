@@ -34,29 +34,38 @@ function saveInscripcion(req, res) {
 
 //Funcion para obtener todas las inscripciones
 function getInscripciones(req, res) {
-    var page = 1;
-
-    if (req.params.page)
-        page = req.params.page;
-
-    var itemsPerPage = 4;
 
 
-    Inscripcion.find().paginate(page, itemsPerPage, (err, inscripciones, total) => {
+    Inscripcion.find().populate('usuario oferta').exec((err, inscripciones) => {
         if (err)
             return res.status(500).send({ message: 'Error al devolver las inscripciones' });
         if (!inscripciones)
             return res.status(404).send({ message: 'No hay inscripciones' });
 
         return res.status(200).send({
-            total_items: total,
-            pages: Math.ceil(total / itemsPerPage),
-            page: page,
-            items_per_page: itemsPerPage,
             inscripciones
 
         });
     });
+}
+
+
+//Obtener inscritos a una oferta
+function getInscritos(req, res){
+
+    //Obtenemos el id de la oferta
+    var idOferta = req.params.id;
+
+    //Buscamos en las inscripciones todas las que contengan esa oferta
+    Inscripcion.find({oferta: idOferta}).populate('usuario').exec((err, inscripciones) => {
+        if (err)
+            return res.status(500).send({ message: 'Error al devolver las inscripciones' });
+        if (!inscripciones)
+            return res.status(404).send({ message: 'No hay inscripciones' });
+
+        return res.status(200).send({inscripciones});
+    });
+
 }
 
 // Funcion para obtener una inscripcion en concreto 
@@ -112,6 +121,7 @@ function deleteInscripcion(req, res) {
 module.exports = {
     saveInscripcion,
     getInscripciones,
+    getInscritos,
     getInscripcion,
     getMisInscripciones,
     deleteInscripcion

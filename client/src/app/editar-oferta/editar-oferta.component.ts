@@ -27,7 +27,7 @@ export class EditarOfertaComponent implements OnInit {
   public jornadas: Jornada[];
 
   constructor(private _ofertaService: OfertaService, private _usuarioService: UsuarioService, private _jornadaService: JornadaService,
-              private _ubicacionService: UbicacionService, private _route: ActivatedRoute,) { 
+              private _ubicacionService: UbicacionService, private _route: ActivatedRoute, private _router:Router) { 
     this.title = 'Actualizar oferta';
     this.token = this._usuarioService.getToken();
     this.url = GLOBAL.url;
@@ -86,7 +86,6 @@ export class EditarOfertaComponent implements OnInit {
           this.status = 'error';
         } else { // Si hay oferta
           this.status = 'success';
-          console.log(this.oferta.oferta);
 
         }
       },

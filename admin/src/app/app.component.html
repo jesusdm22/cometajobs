@@ -17,7 +17,7 @@
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper" *ngIf="identity">
+    <div class="bg-light border-right" id="sidebar-wrapper" *ngIf="identity && identity.acceso == '1' ">
       <div class="sidebar-heading">
         <img src="../assets/logos/cjNegro.png" width="200" draggable="false">
       </div>
@@ -33,7 +33,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" *ngIf="identity">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" *ngIf="identity && identity.acceso == '1' ">
         <!--button class="btn btn-primary" id="menu-toggle">Toggle Menu</button-->
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

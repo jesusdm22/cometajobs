@@ -26,6 +26,11 @@ export class EditarJornadaComponent implements OnInit, DoCheck {
       this.identity = this._usuarioService.getIdentity();
       this.token = this._usuarioService.getToken();
       this.url = GLOBAL.url;
+      //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
 
 
         //Asignamos la jornada en el que hemos clicado 
@@ -38,6 +43,11 @@ export class EditarJornadaComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.identity = this._usuarioService.getIdentity();
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
   }
 
   ngDoCheck(){

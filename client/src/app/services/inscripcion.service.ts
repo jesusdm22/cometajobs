@@ -48,6 +48,14 @@ export class InscripcionService {
     });
   }
 
+
+  getInscritos(token, idOferta): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                    .set('Authorization', token);
+
+    return this._http.get(this.url + 'inscritos/'+idOferta, { headers: headers});
+  }
+
   getInscripcion(token, inscripcionId) {
     let headers = new HttpHeaders()
     .set('Content-Type', 'application/json')

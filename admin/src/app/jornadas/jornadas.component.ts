@@ -25,12 +25,22 @@ export class JornadasComponent implements OnInit, DoCheck {
     this.identity = _usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
     this.getJornadas();
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
   }
 
   ngOnInit(): void {
     console.log("Jornadas cargado!");
     this.identity = this._usuarioService.getIdentity();
     this.getJornadas();
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
   }
 
   ngDoCheck(){

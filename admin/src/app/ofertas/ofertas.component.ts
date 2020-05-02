@@ -25,11 +25,21 @@ export class OfertasComponent implements OnInit, DoCheck {
     this.identity = _usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
     this.getOfertas();
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+}
    }
 
   ngOnInit(): void {
     console.log("Ofertas cargado!");
     this.identity = this._usuarioService.getIdentity();
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+}
     this.getOfertas();
   }
 

@@ -26,6 +26,11 @@ export class EditarUsuarioComponent implements OnInit {
     this.identity = this._usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
     this.url = GLOBAL.url;
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
 
     //Asignamos el usuario en el que hemos clicado 
     _usuarioService.getUser(_route.snapshot.paramMap.get('id')).subscribe(
@@ -38,6 +43,11 @@ export class EditarUsuarioComponent implements OnInit {
    }
 
    ngOnInit(): void {
+     //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
   }
   
   ngDoCheck(){

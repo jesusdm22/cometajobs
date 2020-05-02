@@ -28,10 +28,20 @@ export class NuevaJornadaComponent implements OnInit {
     this.token = this._usuarioService.getToken();
     this.url = GLOBAL.url;
     this.jornada = new Jornada('', '', '');
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
   }
 
   ngOnInit(): void {
     this.identity = this._usuarioService.getIdentity();
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+      this._router.navigate(['']);
+    }
   }
 
 

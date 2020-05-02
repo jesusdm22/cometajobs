@@ -34,24 +34,17 @@ export class LoginComponent implements OnInit {
     this._usuarioService.signIn(this.user).subscribe(
        response => {
          
-         this.identity = response.user;
-
-         if(!this.identity || !this.identity._id ){
-           this.status = 'error';
-         }else {
-           this.status = 'success';
-           //Obtener el token
-           console.log(this.identity);
-           //Persistir datos del usuario
-           localStorage.setItem('identity', JSON.stringify(this.identity));
-           
-           this.getToken(); //Llamada a la funcion que obtiene el token
-           console.log(localStorage.getItem('token'));
-           this._router.navigate(['/usuarios']);
-          
-            
-         }
-          
+        // Si el usuario tiene acceso 1, entonces establecemos la identidad
+        if(response.user.acceso && response.user.acceso == '1'){
+          this.identity = response.user;
+          this.status = 'success';
+          localStorage.setItem('identity', JSON.stringify(this.identity));
+          this.getToken(); //Llamada a la funcion que obtiene el token
+          this._router.navigate(['/usuarios']);
+        } else { // Si no
+          this.status = 'error';
+        }
+        
        },
        error => {
          console.log(error);

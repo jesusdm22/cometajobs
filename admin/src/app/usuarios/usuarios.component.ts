@@ -23,12 +23,19 @@ export class UsuariosComponent implements OnInit, DoCheck {
     this.url = GLOBAL.url;
     this.identity = _usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
+    //Si no hay sesion redirigimos al login
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
+          this._router.navigate(['']);
+    }
+
+    this.getUsuarios();
   }
 
   ngOnInit(): void {
    
-    //Si no hay sesion redirigimos al login
-    if(!this.identity){
+    //|| this.identity.acceso != '1'
+    if(!this.identity || this.identity.acceso != '1'){
       this._router.navigate(['']);
     }
 
