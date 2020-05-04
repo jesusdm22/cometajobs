@@ -1,0 +1,90 @@
+
+ <!-- -->
+<div class="container">
+    <h2>Buscar un empleo:</h2>
+    <hr>
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-12">
+            <!-- TODO: FORMULARIO PARA FILTRAR POR TITULO, UBICACION Y TIPO DE JORNADA-->
+            <form #searchForm="ngForm"  (ngSubmit)="onSubmit(searchForm)" class="search-jobs-form" >
+                <div class="row mb-5">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-lg-0">
+                        <input type="text" class="form-control" placeholder="Puesto, tecnologia.." name="titulo" ngModel>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <select class="form-control" name="ubicacion" ngModel>
+                          <option value="" >Selecciona una ubicacion</option>
+                            <option value="{{ubicacion.ubicacion}}" *ngFor="let ubicacion of ubicaciones">{{ubicacion.ubicacion}}</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <select class="form-control" name="jornada" ngModel> 
+                          <option value="" selected>Selecciona una jornada</option>
+                          <option value="{{jornada._id}}" *ngFor="let jornada of jornadas">{{jornada.jornada}}</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <button type="submit" class="btn btn-primary btn-block text-white btn-search" id="search">
+                            <span class="icon-search icon mr-2"></span>Aplicar filtros
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!--AQUI EL RESULTADO DE LA BUSQUEDA-->
+
+    <p *ngIf="this.status == 'warning'" class="alert alert-warning">{{mensaje}}</p>
+    <p *ngIf="this.status == 'error'" class="alert alert-danger">{{mensaje}}</p>
+    <p *ngIf="this.status == 'success'" class="alert alert-success">{{mensaje}}</p>
+
+    <div class="mb-5">
+
+        <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3 sombra" *ngFor="let resultado of resultados">
+            <div class="col-md-2">
+
+                <a *ngIf="resultado.empresa.imagen">
+                    <img src="{{ url + 'get-image-user/' + resultado.empresa.imagen }}" alt="Image" 
+                    class="img-thumbnail" width="130" draggable="false">
+                </a>
+
+                <a *ngIf="!resultado.empresa.imagen">
+                  <img src="../../assets/images/default.png" alt="Image"  
+                  class="img-thumbnail" width="130" draggable="false">
+              </a>
+
+            </div>
+            <div class="col-md-4">
+                <span class="badge px-2 py-1 mb-3" style="color:black;" [style.backgroundColor]="resultado.jornada.color" >{{resultado.jornada.jornada}}</span>
+                <h2><a [routerLink]="['/oferta/', resultado._id]">{{resultado.titulo}}</a> </h2>
+                <p class="meta">Publicado por: <strong>{{resultado.empresa.nombre}}</strong></p>
+                <p><span class="meta">Descripcion: </span> {{resultado.descripcion}}</p>
+                <p class="meta">Publicado: <strong>{{resultado.created_at | amFromUnix | amLocale: "es" | amTimeAgo}}</strong></p>
+            </div>
+            <div class="col-md-3 text-left">
+            <h3><span class="icon-map-marker"></span>&nbsp; {{resultado.ubicacion}}</h3>
+            <span class="icon-globe"></span>&nbsp;<span class="meta"> España</span>
+            </div>
+            <div class="col-md-3 text-md-right">
+                <strong class="text-black">{{resultado.sueldo}} € &nbsp;</strong><br><br>
+                <!-- DEPENDIENDO DEL USUARIO QUE SEA, TENDRA UNOS PERMISOS U OTROS SOBRE LA OFERTA DE TRABAJO-->
+
+                <!--CANDIDATO NO INSCRITO-->
+                <a *ngIf="identity && (identity.acceso == 3) && (listaIdOfertas.indexOf(resultado._id) < 0)">
+                    <button class="btn btn-primary" (click)="inscribirse(resultado._id)">Inscribirme</button>
+                </a>
+
+                <!--DUEÑO DE LA OFERTA-->
+                <a *ngIf="identity && identity.acceso == 2 && (identity._id === resultado.empresa._id)" [routerLink]="['/editar-oferta/', resultado._id]"><button class="btn btn-warning">EDITAR</button></a>
+
+                 <!--CANDIDATO YA INSCRITO-->
+                <a  *ngIf="identity && (identity.acceso == 3) && (listaIdOfertas.indexOf(resultado._id) >= 0) ">
+                    <button class="btn btn-default">Ya inscrito</button>
+              </a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>

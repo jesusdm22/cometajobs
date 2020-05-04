@@ -26,11 +26,12 @@ export class ProfileComponent implements OnInit {
     this.url = GLOBAL.url;
     this.identity = this._usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
+
   }
 
   ngOnInit(): void {
     this.loadPage();
-   
+    this.identity = this._usuarioService.getIdentity();
   }
 
   loadPage(){

@@ -30,7 +30,15 @@ export class EditarOfertaComponent implements OnInit {
               private _ubicacionService: UbicacionService, private _route: ActivatedRoute, private _router:Router) { 
     this.title = 'Actualizar oferta';
     this.token = this._usuarioService.getToken();
+    this.identity = this._usuarioService.getIdentity();
     this.url = GLOBAL.url;
+
+    //Si no hay sesion ni eres empresa redirigimos al login
+    //|| this.identity.acceso != '2'
+    //Si no hay sesion ni eres usuario redirigimos al login
+    if(!this.identity || this.identity.acceso != '2'){
+      this._router.navigate(['/login']);
+    }
     
     //Asignamos la oferta en la que hemos clicado 
     _ofertaService.getOferta(this.token, _route.snapshot.paramMap.get('id')).subscribe(
@@ -42,6 +50,7 @@ export class EditarOfertaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  this.identity = this._usuarioService.getIdentity();
    this.getJornadas();
    this.getUbicaciones();
   }

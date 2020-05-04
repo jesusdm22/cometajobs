@@ -10,6 +10,7 @@ import { EditarOfertaComponent } from './editar-oferta/editar-oferta.component';
 import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
 import { OfertaComponent } from './oferta/oferta.component';
 import { InscritosComponent } from './inscritos/inscritos.component';
+import { OfertasComponent } from './ofertas/ofertas.component';
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'editar-oferta/:id', component: EditarOfertaComponent},
   {path: 'nueva-oferta', component: NuevaOfertaComponent},
   {path: 'oferta/:id', component: OfertaComponent},
+  {path: 'ofertas', component: OfertasComponent},
   {path: 'inscritos/:id', component: InscritosComponent},
   {path: 'error', component: ErrorComponent}
 ];

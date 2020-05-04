@@ -40,6 +40,15 @@ export class OfertaService {
 
   }
 
+  searchOfertas(datos): Observable<any> {
+
+    let params = JSON.stringify(datos);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json') //Cabeceras
+
+    return this._http.post(this.url+'busqueda', params, {headers:headers});
+                              
+  }
+
 
 
    //Metodo para pedir peticion HTTP al API y obtener ofertas

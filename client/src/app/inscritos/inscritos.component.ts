@@ -31,6 +31,12 @@ export class InscritosComponent implements OnInit {
       this.token = _usuarioService.getToken();
       this.url = GLOBAL.url;
 
+      //Si no hay sesion ni eres empresa redirigimos al login
+      if(!this.identity || this.identity.acceso != '2'){
+      this._router.navigate(['/login']);
+      }
+   
+
       this.getOferta(_route.snapshot.paramMap.get('id'));
       this.getListaInscritos(_route.snapshot.paramMap.get('id'));
      }
@@ -39,6 +45,7 @@ export class InscritosComponent implements OnInit {
     this.identity = this._usuarioService.getIdentity();
     this.getOferta(this._route.snapshot.paramMap.get('id'));
     this.getListaInscritos(this._route.snapshot.paramMap.get('id'));
+
   }
 
 

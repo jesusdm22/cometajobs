@@ -41,16 +41,24 @@ export class MisInscripcionesComponent implements OnInit {
     private _ubicacionService: UbicacionService,
     private _jornadaService: JornadaService,
     private _ofertaService: OfertaService,
-    private _inscripcionService: InscripcionService) 
+    private _inscripcionService: InscripcionService, private _router: Router) 
   { 
     this.url = GLOBAL.url;
     this.identity = this._usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
+    //Si no hay sesion ni eres usuario redirigimos al login
+    //|| this.identity.acceso != '3'
+    if(!this.identity || this.identity.acceso != '3'){
+      this._router.navigate(['/login']);
+    }
+    
+
     
   }
   
 
   ngOnInit(): void {
+
     this.getUbicaciones();
     this.getJornadas();
     this.getOfertas();

@@ -17,6 +17,7 @@ import { EditarOfertaComponent } from './editar-oferta/editar-oferta.component';
 import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
 import { OfertaComponent } from './oferta/oferta.component';
 import { InscritosComponent } from './inscritos/inscritos.component';
+import { OfertasComponent } from './ofertas/ofertas.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { InscritosComponent } from './inscritos/inscritos.component';
     EditarOfertaComponent,
     NuevaOfertaComponent,
     OfertaComponent,
-    InscritosComponent
+    InscritosComponent,
+    OfertasComponent
   ],
   imports: [
     BrowserModule,

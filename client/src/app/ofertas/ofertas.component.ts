@@ -13,10 +13,11 @@ import { Oferta } from '../models/oferta';
 import { Form } from '@angular/forms';
 import { Inscripcion } from '../models/inscripcion';
 
+
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-ofertas',
+  templateUrl: './ofertas.component.html',
+  styleUrls: ['./ofertas.component.css'],
   providers: [
     UsuarioService,
     UbicacionService,
@@ -25,61 +26,60 @@ import { Inscripcion } from '../models/inscripcion';
     InscripcionService
   ]
 })
-export class HomeComponent implements OnInit, DoCheck {
+export class OfertasComponent implements OnInit, DoCheck {
+
   public url;
   public identity;
   public token;
   public status;
+  public mensaje;
   public ubicaciones: Ubicacion[];
   public jornadas: Jornada[];
   public inscripcionesArray;
   public ofertas;
   public listaIdOfertas = [];
+  public resultados;
+  public initForm 
 
-  constructor(
-    private _usuarioService: UsuarioService,
+  constructor(private _usuarioService: UsuarioService,
     private _ubicacionService: UbicacionService,
     private _jornadaService: JornadaService,
     private _ofertaService: OfertaService,
-    private _inscripcionService: InscripcionService,
-
-  ) {
-    this.url = GLOBAL.url;
-    this.identity = this._usuarioService.getIdentity();
-    this.token = this._usuarioService.getToken();
-
-    this.getUbicaciones();
-    this.getJornadas();
-    this.getOfertas();
-    this.misInscripciones();
-  }
+    private _inscripcionService: InscripcionService)
+    {
+        this.url = GLOBAL.url;
+        this.identity = this._usuarioService.getIdentity();
+        this.token = this._usuarioService.getToken();
+        this.status = "warning";
+        this.mensaje = "Realiza una busqueda!";
+        
+     }
 
   ngOnInit(): void {
     this.getUbicaciones();
     this.getJornadas();
-    this.getOfertas();
     this.misInscripciones();
-    
   }
 
-  ngDoCheck() {
-
+  ngDoCheck(){
     this.identity = this._usuarioService.getIdentity();
   }
+
 
   getUbicaciones() {
     this._ubicacionService.getUbicaciones(this.token, 1).subscribe(
       (response) => {
         if (response.ubicaciones) {
           this.ubicaciones = response.ubicaciones;
-          this.status = 'success';
           console.log(this.ubicaciones);
         } else {
+          this.mensaje = 'Error al obtener las ubicaciones';
           this.status = 'error';
         }
       },
       (err) => {
         console.log(<any>err);
+        this.mensaje = 'Error al obtener las ubicaciones';
         this.status = 'error';
       }
     );
@@ -90,37 +90,19 @@ export class HomeComponent implements OnInit, DoCheck {
       (response) => {
         if (response.jornadas) {
           this.jornadas = response.jornadas;
-          this.status = 'success';
           console.log(this.jornadas);
         } else {
+          this.mensaje = 'Error al obtener las jornadas';
           this.status = 'error';
         }
       },
       (err) => {
         console.log(<any>err);
+        this.mensaje = 'Error al obtener las jornadas';
         this.status = 'error';
       }
     );
   }
-
-  getOfertas() {
-    this._ofertaService.getOfertas(this.token, 1).subscribe(
-      (response) => {
-        if (response.ofertas) {
-          this.ofertas = response.ofertas;
-          this.status = 'success';
-          console.log(this.ofertas);
-        } else {
-          this.status = 'error';
-        }
-      },
-      (err) => {
-        console.log(<any>err);
-        this.status = 'error';
-      }
-    );
-  }
-
 
   misInscripciones() {
     this._inscripcionService.getInscripcionesByUser(this.token, 1, this.identity._id).subscribe(
@@ -128,8 +110,6 @@ export class HomeComponent implements OnInit, DoCheck {
         if (response) {
           
          this.inscripcionesArray = response.inscripciones;
-         console.log("Inscripciones recogidas con exito");
-
          this.inscripcionesArray.forEach((inscripcion) => {
             console.log(inscripcion.oferta._id);
             this.listaIdOfertas.push(inscripcion.oferta._id);
@@ -137,12 +117,14 @@ export class HomeComponent implements OnInit, DoCheck {
          });
           
         } else {
+          this.mensaje = 'Error al obtener las inscripciones del usuario';
           this.status = 'error';
         }
       },
       (err) => {
         console.log(<any>err);
-        this.status = 'error';
+        this.mensaje = 'Error al las inscripciones del usuario';
+          this.status = 'error';
       }
     );
   }
@@ -163,14 +145,31 @@ export class HomeComponent implements OnInit, DoCheck {
       );
   }
 
+
   onSubmit(form){
     var texto = form.value.titulo;
     var ubicacion = form.value.ubicacion;
     var jornada = form.value.jornada;
-    
+
+    this._ofertaService.searchOfertas(form.value).subscribe(
+      response => {
+        this.resultados = response.resultado;
+        this.status = 'success';
+        if(this.resultados.length == 1)
+          this.mensaje = 'Su busqueda obtuvo ' + this.resultados.length + ' resultado';
+        else
+          this.mensaje = 'Su busqueda obtuvo ' + this.resultados.length + ' resultados';
+        
+        if(response.resultado.length <= 0){
+          this.mensaje = 'Su busqueda no obtuvo ningun resultado';
+          this.status = "error";
+        }
+         
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
   }
-
-
-  
 
 }

@@ -26,6 +26,11 @@ export class EditarPerfilComponent implements OnInit {
     this.identity = this.user;
     this.token = this._usuarioService.getToken();
     this.url = GLOBAL.url;
+
+  //Si no hay sesion ni eres usuario redirigimos al login
+    if(!this.identity || this.identity.acceso != '3'){
+      this._router.navigate(['/login']);
+    }
    }
 
    ngOnInit(): void {
