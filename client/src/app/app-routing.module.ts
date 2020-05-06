@@ -11,11 +11,13 @@ import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
 import { OfertaComponent } from './oferta/oferta.component';
 import { InscritosComponent } from './inscritos/inscritos.component';
 import { OfertasComponent } from './ofertas/ofertas.component';
+import { AppComponent } from './app.component';
+import { AboutComponent } from './about/about.component';
 
 
 
-const routes: Routes = [
-  {path: '', component: HomeComponent},
+const routes: Routes = [  
+  {path : ' ' , component: HomeComponent},   
   {path: 'login', component: LoginComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'home', component: HomeComponent},
@@ -26,6 +28,7 @@ const routes: Routes = [
   {path: 'oferta/:id', component: OfertaComponent},
   {path: 'ofertas', component: OfertasComponent},
   {path: 'inscritos/:id', component: InscritosComponent},
+  {path: 'about', component: AboutComponent},
   {path: 'error', component: ErrorComponent}
 ];
 

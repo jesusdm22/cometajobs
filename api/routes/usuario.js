@@ -26,6 +26,7 @@ api.delete('/usuario/:id', md_auth.ensureAuth, UsuarioController.deleteUser); //
 api.put('/update-user/:id', md_auth.ensureAuth, UsuarioController.updateUser); // Actualizar datos de usuario
 api.post('/update-image-user/:id', [md_auth.ensureAuth, md_upload], UsuarioController.uploadImage); //Aqui usaremos dos middlewares // Subir imagen de usuario
 api.get('/get-image-user/:imageFile', UsuarioController.getImageFile); // Ver imagen de usuario
+api.post('/sendMail', UsuarioController.sendMail); // Enviar Correo
 
 //Exportamos
 module.exports = api;

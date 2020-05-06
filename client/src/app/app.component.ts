@@ -15,6 +15,7 @@ export class AppComponent {
 
   constructor(private _usuarioService: UsuarioService, private _router: Router) {
     this.url = GLOBAL.url;
+    this.identity = this._usuarioService.getIdentity();
   }
 
   ngOnInit(){

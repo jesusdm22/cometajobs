@@ -14,6 +14,9 @@ var fs = require('fs');
 // Cargamos path
 var path = require('path');
 
+//Sendgrid
+const sgMail = require('@sendgrid/mail');
+
 
 // Funcion para guardar usuarios
 function saveUser(req, res) {
@@ -338,6 +341,35 @@ function getImageFile(req, res) {
     });
 }
 
+
+function sendMail(req, res){
+    sgMail.setApiKey('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');
+  
+    var nombreCompleto = req.body.nombre + ' ' +  req.body.apellidos;
+    var asunto = req.body.asunto;
+    var mensaje = req.body.mensaje;
+    var enviado = false;
+
+    const msg = {
+        to: 'jesusdm22@hotmail.com',
+        from: 'jesusdiaz221020@gmail.com',
+        subject: asunto,
+        text: '<h2>' + nombreCompleto + '</h2><br><strong>' + mensaje + '</strong>',
+        html: '<h2>' + nombreCompleto + '</h2><br><strong>' + mensaje + '</strong>',
+    };
+
+    sgMail.send(msg).then(() => {
+        console.log('Mensaje enviado');
+        enviado = true;
+    }).catch((error) => {
+        console.log(error.response.body);
+    });
+
+    if(enviado)
+        return res.status(200).send('Mensaje enviado');
+    
+}
+
 // Exportamos 
 module.exports = {
     saveUser,
@@ -348,5 +380,6 @@ module.exports = {
     deleteUser, 
     updateUser,
     uploadImage,
-    getImageFile
+    getImageFile,
+    sendMail
 }

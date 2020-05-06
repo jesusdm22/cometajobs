@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
+    this.identity = this._usuarioService.getIdentity();
     this.getUbicaciones();
     this.getJornadas();
     this.getOfertas();
@@ -169,8 +170,6 @@ export class HomeComponent implements OnInit, DoCheck {
     var jornada = form.value.jornada;
     
   }
-
-
   
 
 }

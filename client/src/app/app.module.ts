@@ -18,6 +18,7 @@ import { NuevaOfertaComponent } from './nueva-oferta/nueva-oferta.component';
 import { OfertaComponent } from './oferta/oferta.component';
 import { InscritosComponent } from './inscritos/inscritos.component';
 import { OfertasComponent } from './ofertas/ofertas.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { OfertasComponent } from './ofertas/ofertas.component';
     NuevaOfertaComponent,
     OfertaComponent,
     InscritosComponent,
-    OfertasComponent
+    OfertasComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
