@@ -9,7 +9,9 @@ API -> Puerto 3800
 Cliente -> Puerto 4200
 <br>
 Admin -> Puerto a elegir (4300 por ejemplo)
-<br><br>
+<br>
+Para ejecutar la aplicacion se require MongoDB, y realizar npm install tanto en 'admin', como en 'client'
+<br>
 Para ello hay que lanzar el comando 'npm start' dentro del directorio 'api'.<br>
 En otra terminal lanzar el comando 'npm start' de nuevo, pero esta vez dentro del directorio 'client'.<br>
 En otra terminal lanzar el comando 'ng serve --port [puerto]' de nuevo, pero esta vez dentro del directorio 'admin'.<br>
