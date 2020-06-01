@@ -14,9 +14,38 @@
         <td>{{ubicacion.ubicacion}}</td>
         <td>
           <button class="btn btn-warning btn-sm" (click)="editarUbicacion(ubicacion._id)">Editar</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteUbicacion(ubicacion._id)">Eliminar</button>
+          <!--button class="btn btn-danger btn-sm" (click)="deleteUbicacion(ubicacion._id)">Eliminar</button-->
+          <button class="btn btn-danger btn-sm" (click)="getIdUbicacion(ubicacion._id)">Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
-  
+
+
+
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="lanzar" style="display:none;">
+  Lanzar modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Si eliminas a <span style="font-weight: bold;">{{elemento}}</span>, podria repercutir en los registros relacionados.
+        <br>¿Estas seguro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="eliminar" (click)='deleteUbicacion()'>Si</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cerrar">No</button>
+      </div>
+    </div>
+  </div>
+</div>

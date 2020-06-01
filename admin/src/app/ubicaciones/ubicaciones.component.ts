@@ -18,6 +18,8 @@ export class UbicacionesComponent implements OnInit {
   public status;
   public ubicaciones;
   public token;
+  public elemento;
+  public continuar = false;
 
   constructor(private _usuarioService: UsuarioService, private _ubicacionService:UbicacionService, private _router:Router) {
     this.title = "Ubicaciones";
@@ -65,25 +67,42 @@ export class UbicacionesComponent implements OnInit {
     );
   }
 
+//PARA BORRAR ---------------------------------------------------------------------
 
-  deleteUbicacion(idUbicacion){
-    var eliminar = window.confirm("Estas seguro de querer eliminar esta ubicacion?");
-
-    //Si queremos eliminar
-    if(eliminar){
-      this._ubicacionService.deleteUbicacion(this.token, idUbicacion).subscribe(
+  //Funcion que obtiene de la sesion el id a eliminar, y lo eliminar
+  //Esta funcion solo se ejecuta si se clica 'Si' en el modal
+  deleteUbicacion(){
+      this._ubicacionService.deleteUbicacion(this.token, sessionStorage.getItem('idEliminar')).subscribe(
         response =>{
-              window.alert("Ubicacion borrada con exito");
               this.ngOnInit();
+              sessionStorage.removeItem('idEliminar'); //Limpiamos la variable de sesion
+              document.getElementById('cerrar').click();//Cerramos el modal
         },
         error => {
           console.log(<any>error);
           window.alert("Error al borrar la ubicacion");
         }
       );
-    }
-    
+  
   }
+
+  //Funcion que llamaremos desde el boton de eliminar de cada fila
+  getIdUbicacion(idUbicacion){
+    //Lanzamos el modal
+    document.getElementById("lanzar").click();
+   
+    //Obtenemos el nombre de la ubicacion
+    this._ubicacionService.getUbicacion(this.token, idUbicacion).subscribe(
+      response => {
+        this.elemento = response.ubicacion.ubicacion;
+      }
+    )
+    //Guardamos el elemento en una variabla de sesion
+    sessionStorage.setItem('idEliminar', idUbicacion);
+    
+    //Una vez seteado el id a eliminar, llamaremos a la funcion de eliminar desde los botones de eliminar
+  }
+ // --------------------------------------------------------------------- --------------------------------
 
   editarUbicacion(idUbicacion){
     this._router.navigate(['editar-ubicacion/', idUbicacion]);

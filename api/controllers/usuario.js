@@ -154,25 +154,23 @@ async function followThisUser(identity_user_id, user_id) {
 
 // Funcion para devolver un listado de usuarios paginado
 function getUsers(req, res) {
-    var identity_user_id = req.user.sub; //Usuario logueado actualmente
+    //var identity_user_id = req.user.sub; //Usuario logueado actualmente
     var page = 1;
     if (req.params.page) {
         page = req.params.page;
     }
 
-    var itemsPerPage = 5; // Usuarios por pagina
 
-    // Ordenamos por id y le decimos que pagine 
-    User.find().sort('_id').paginate(page, itemsPerPage, (err, users, total) => {
+    // Ordenamos por id 
+    User.find().sort('_id').exec((err, users) => {
         if (err)
             res.status(500).send({ message: 'Error en la peticion' });
         if (!users)
             res.status(404).send({ message: 'No hay usuarios disponibles' });
 
         return res.status(200).send({
-                users,
-                total,
-                pages: Math.ceil(total / itemsPerPage) //Numero de paginas = total de usuarios / usuarios por pagina
+                users
+               
          
         });
 

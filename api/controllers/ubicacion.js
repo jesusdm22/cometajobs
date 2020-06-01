@@ -38,8 +38,6 @@ function getUbicaciones(req, res) {
     if (req.params.page)
         page = req.params.page;
 
-    var itemsPerPage = 4;
-
         Ubicacion.find().exec((err, ubicaciones, total) => {
                 if (err)
                     return res.status(500).send({ message: 'Error al devolver las ubicaciones' });

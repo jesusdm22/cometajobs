@@ -18,6 +18,7 @@ export class JornadasComponent implements OnInit, DoCheck {
   public status;
   public jornadas;
   public token;
+  public elemento;
 
   constructor(private _usuarioService: UsuarioService, private _jornadaService: JornadaService, private _router: Router) { 
     this.title = "Jornadas";
@@ -68,24 +69,43 @@ export class JornadasComponent implements OnInit, DoCheck {
     );
   }
 
-  deleteJornada(idJornada){
-    var eliminar = window.confirm("Estas seguro de querer eliminar esta oferta?");
+  //PARA BORRAR ---------------------------------------------------------------------
 
-    //Si queremos eliminar
-    if(eliminar){
-      this._jornadaService.deleteJornada(this.token, idJornada).subscribe(
-        response =>{
-              window.alert("Jornada borrada con exito");
-              this.ngOnInit();
-        },
-        error => {
-          console.log(<any>error);
-          window.alert("Error al borrar la jornada");
-        }
-      );
+  //Funcion que obtiene de la sesion el id a eliminar, y lo eliminar
+  //Esta funcion solo se ejecuta si se clica 'Si' en el modal
+  deleteJornada(){
+    this._jornadaService.deleteJornada(this.token, sessionStorage.getItem('idEliminar')).subscribe(
+      response =>{
+            this.ngOnInit();
+            sessionStorage.removeItem('idEliminar'); //Limpiamos la variable de sesion
+            document.getElementById('cerrar').click();//Cerramos el modal
+      },
+      error => {
+        console.log(<any>error);
+        window.alert("Error al borrar la jornada");
+      }
+    );
+
+}
+
+//Funcion que llamaremos desde el boton de eliminar de cada fila
+getIdJornada(idJornada){
+  //Lanzamos el modal
+  document.getElementById("lanzar").click();
+ 
+  //Obtenemos el nombre de la jornada
+  this._jornadaService.getJornada(idJornada, this.token).subscribe(
+    response => {
+      this.elemento = response.jornada.jornada;
+      //console.log(response);
     }
-    
-  }
+  )
+  //Guardamos el elemento en una variabla de sesion
+  sessionStorage.setItem('idEliminar', idJornada);
+  
+  //Una vez seteado el id a eliminar, llamaremos a la funcion de eliminar desde los botones de eliminar
+}
+// --------------------------------------------------------------------- --------------------------------
 
   editarJornada(idJornada){
     this._router.navigate(['/editar-jornada/', idJornada]);

@@ -40,6 +40,10 @@
         <div class="alert alert-danger" *ngIf="status === 'error'">
             Credenciales incorrectas
         </div>
+
+        <div class="alert alert-danger" *ngIf="status === 'forbidden'">
+          No tienes permiso para acceder a este lugar
+      </div>
     </form>
   </body>
 </html>

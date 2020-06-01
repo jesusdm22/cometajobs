@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, DoCheck {
   public inscripcionesArray;
   public ofertas;
   public listaIdOfertas = [];
+  public buscador = false;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -48,10 +49,7 @@ export class HomeComponent implements OnInit, DoCheck {
     this.identity = this._usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
 
-    this.getUbicaciones();
-    this.getJornadas();
-    this.getOfertas();
-    this.misInscripciones();
+
   }
 
   ngOnInit(): void {

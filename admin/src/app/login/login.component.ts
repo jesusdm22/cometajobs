@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           this.getToken(); //Llamada a la funcion que obtiene el token
           this._router.navigate(['/usuarios']);
         } else { // Si no
-          this.status = 'error';
+          this.status = 'forbidden';
         }
         
        },

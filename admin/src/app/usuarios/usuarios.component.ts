@@ -17,6 +17,7 @@ export class UsuariosComponent implements OnInit, DoCheck {
   public status;
   public usuarios;
   public token;
+  public elemento;
 
   constructor(private _usuarioService: UsuarioService, private _router: Router) { 
     this.title = "Usuarios";
@@ -29,7 +30,6 @@ export class UsuariosComponent implements OnInit, DoCheck {
           this._router.navigate(['']);
     }
 
-    this.getUsuarios();
   }
 
   ngOnInit(): void {
@@ -37,10 +37,15 @@ export class UsuariosComponent implements OnInit, DoCheck {
     //|| this.identity.acceso != '1'
     if(!this.identity || this.identity.acceso != '1'){
       this._router.navigate(['']);
+    } else {
+      console.log("Usuarios cargado!");
+      this.identity = this._usuarioService.getIdentity();
+      this.token = this._usuarioService.getToken();
+      this.getUsuarios();
     }
 
-    console.log("Usuarios cargado!");
-    this.getUsuarios();
+    
+   
   }
 
   ngDoCheck() {
@@ -50,7 +55,7 @@ export class UsuariosComponent implements OnInit, DoCheck {
 
 
   getUsuarios(){
-    this._usuarioService.getUsers(1).subscribe(
+    this._usuarioService.getUsers().subscribe(
       response => {
         console.log(response);
         if(response){
@@ -69,26 +74,42 @@ export class UsuariosComponent implements OnInit, DoCheck {
   }
 
 
-  deleteUsuario(idUsuario){
+  //PARA BORRAR ---------------------------------------------------------------------
 
-    var eliminar = window.confirm("Estas seguro de querer eliminar este usuario?");
+  //Funcion que obtiene de la sesion el id a eliminar, y lo eliminar
+  //Esta funcion solo se ejecuta si se clica 'Si' en el modal
+  deleteUsuario(){
+    this._usuarioService.deleteUser(sessionStorage.getItem('idEliminar')).subscribe(
+      response =>{
+            this.ngOnInit();
+            sessionStorage.removeItem('idEliminar'); //Limpiamos la variable de sesion
+            document.getElementById('cerrar').click();//Cerramos el modal
+      },
+      error => {
+        console.log(<any>error);
+        window.alert("Error al borrar el usuario");
+      }
+    );
 
-    if(eliminar) {
-      this._usuarioService.deleteUser(idUsuario).subscribe(
-        response =>{
+}
+
+//Funcion que llamaremos desde el boton de eliminar de cada fila
+getIdUsuario(idUsuario){
+  //Lanzamos el modal
+  document.getElementById("lanzar").click();
+ 
+  //Obtenemos el nombre del usuario
+  this._usuarioService.getUser(idUsuario).subscribe(
+    response => {
+      this.elemento = response.oferta.titulo;
+    }
+  )
+  //Guardamos el elemento en una variabla de sesion
+  sessionStorage.setItem('idEliminar', idUsuario);
   
-          if(eliminar){
-            window.alert("Usuario borrado con exito");
-            this.ngOnInit(); 
-          }  
-        },
-        error => {
-          console.log(<any>error);
-          window.alert("Error al borrar el usuario");
-        }
-      );
-    } 
-  }
+  //Una vez seteado el id a eliminar, llamaremos a la funcion de eliminar desde los botones de eliminar
+}
+// --------------------------------------------------------------------- --------------------------------
 
   editarUsuario(idUsuario){
     this._router.navigate(['/editar-usuario/', idUsuario]);

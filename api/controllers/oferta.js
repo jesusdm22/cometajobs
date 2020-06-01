@@ -112,7 +112,7 @@ function getOfertas(req, res) {
     var itemsPerPage = 4;
 
 
-    Oferta.find().sort('created_at').populate('empresa jornada').paginate(page, itemsPerPage, (err, ofertas, total) => {
+    Oferta.find().sort('created_at').populate('empresa jornada').exec((err, ofertas, total) => {
         if (err)
             return res.status(500).send({ message: 'Error al devolver las ofertas' });
         if (!ofertas)
@@ -120,9 +120,6 @@ function getOfertas(req, res) {
 
         return res.status(200).send({
             total_items: total,
-            pages: Math.ceil(total / itemsPerPage),
-            page: page,
-            items_per_page: itemsPerPage,
             ofertas
 
         });

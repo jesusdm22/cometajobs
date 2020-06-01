@@ -20,7 +20,7 @@ var md_upload = multipart({uploadDir: './uploads/users'}); //Ruta de subidas
 api.post('/registrar', UsuarioController.saveUser); // Guardar un usuario (registro)
 api.post('/login', UsuarioController.loginUser); // Login de un usuario (login)
 api.get('/usuario/:id', md_auth.ensureAuth, UsuarioController.getUser); // Ver un usuario
-api.get('/usuarios/:page?', md_auth.ensureAuth, UsuarioController.getUsers); // Ver usuarios
+api.get('/usuarios/:page?', UsuarioController.getUsers); // Ver usuarios
 api.get('/empresas/:page?', md_auth.ensureAuth, UsuarioController.getEmpresas); // Ver empresas
 api.delete('/usuario/:id', md_auth.ensureAuth, UsuarioController.deleteUser); // Eliminar usuario
 api.put('/update-user/:id', md_auth.ensureAuth, UsuarioController.updateUser); // Actualizar datos de usuario

@@ -83,16 +83,7 @@ export class UsuarioService {
     return stats;
   } 
 
- /* getCounters(userId = null): Observable<any>{
-    
-    let headers = new HttpHeaders().set('Content-Type', 'application/json')
-                                   .set('Authorization', this.getToken());
-                                    
-    if(userId != null)
-      return this._http.get(this.url+'counters/'+userId, {headers:headers});
-    else 
-      return this._http.get(this.url+'counters', {headers:headers});
-  } */
+
 
   updateUser(user: Usuario): Observable<any> {
     let params = JSON.stringify(user); //Obtenemos datos del form y los convertimos en js
@@ -105,13 +96,13 @@ export class UsuarioService {
   }
 
   //Metodo para devolver usuarios
-  getUsers(page = null):Observable<any> {
+  getUsers():Observable<any> {
 
     //Cabeceras http
     let headers = new HttpHeaders().set('Content-Type', 'application/json') //Cabeceras
-                               .set('Authorization', this.token);
+                               .set('Authorization', this.getToken());
 
-    return this._http.get(this.url+'usuarios/'+page, {headers:headers});
+    return this._http.get(this.url+'usuarios/', {headers:headers});
   }
 
 

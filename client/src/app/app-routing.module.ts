@@ -16,8 +16,8 @@ import { AboutComponent } from './about/about.component';
 
 
 
-const routes: Routes = [  
-  {path : ' ' , component: HomeComponent},   
+const routes: Routes = [ 
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'home', component: HomeComponent},
@@ -30,6 +30,7 @@ const routes: Routes = [
   {path: 'inscritos/:id', component: InscritosComponent},
   {path: 'about', component: AboutComponent},
   {path: 'error', component: ErrorComponent}
+     
 ];
 
 @NgModule({

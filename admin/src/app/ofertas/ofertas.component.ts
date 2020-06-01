@@ -18,6 +18,7 @@ export class OfertasComponent implements OnInit, DoCheck {
   public status;
   public ofertas;
   public token;
+  public elemento;
 
   constructor(private _usuarioService: UsuarioService, private _ofertaService: OfertaService, private _router: Router) {
     this.title = "Ofertas";
@@ -69,24 +70,42 @@ export class OfertasComponent implements OnInit, DoCheck {
     );
   }
 
-  deleteOferta(idOferta){
-    var eliminar = window.confirm("Estas seguro de querer eliminar esta oferta?");
+  //PARA BORRAR ---------------------------------------------------------------------
 
-    //Si queremos eliminar
-    if(eliminar){
-      this._ofertaService.deleteOferta(this.token, idOferta).subscribe(
-        response =>{
-              window.alert("Oferta borrada con exito");
-              this.ngOnInit();
-        },
-        error => {
-          console.log(<any>error);
-          window.alert("Error al borrar la oferta");
-        }
-      );
+  //Funcion que obtiene de la sesion el id a eliminar, y lo eliminar
+  //Esta funcion solo se ejecuta si se clica 'Si' en el modal
+  deleteOferta(){
+    this._ofertaService.deleteOferta(this.token, sessionStorage.getItem('idEliminar')).subscribe(
+      response =>{
+            this.ngOnInit();
+            sessionStorage.removeItem('idEliminar'); //Limpiamos la variable de sesion
+            document.getElementById('cerrar').click();//Cerramos el modal
+      },
+      error => {
+        console.log(<any>error);
+        window.alert("Error al borrar la oferta");
+      }
+    );
+
+}
+
+//Funcion que llamaremos desde el boton de eliminar de cada fila
+getIdOferta(idOferta){
+  //Lanzamos el modal
+  document.getElementById("lanzar").click();
+ 
+  //Obtenemos el nombre de la oferta
+  this._ofertaService.getOferta(this.token, idOferta).subscribe(
+    response => {
+      this.elemento = response.oferta.titulo;
     }
-    
-  }
+  )
+  //Guardamos el elemento en una variabla de sesion
+  sessionStorage.setItem('idEliminar', idOferta);
+  
+  //Una vez seteado el id a eliminar, llamaremos a la funcion de eliminar desde los botones de eliminar
+}
+// --------------------------------------------------------------------- --------------------------------
 
   editarOferta(idOferta){
     this._router.navigate(['/editar-oferta/', idOferta]);
