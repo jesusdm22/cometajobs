@@ -38,6 +38,7 @@ export class EditarOfertaComponent implements OnInit {
     if(!this.identity || this.identity.acceso != '1'){
       this._router.navigate(['']);
     }
+    
     //Asignamos la oferta en la que hemos clicado 
     _ofertaService.getOferta(this.token, _route.snapshot.paramMap.get('id')).subscribe(
       response => {
@@ -76,7 +77,6 @@ export class EditarOfertaComponent implements OnInit {
       (response) => {
         if (response.ubicaciones) {
           this.ubicaciones = response.ubicaciones;
-          console.log(this.ubicaciones);
         } 
       },
       (err) => {
@@ -91,6 +91,7 @@ export class EditarOfertaComponent implements OnInit {
       (response) => {
         if (response.jornadas) {
           this.jornadas = response.jornadas;
+          
         } 
       },
       (err) => {
@@ -103,12 +104,14 @@ export class EditarOfertaComponent implements OnInit {
 
   onSubmit(){
     //Llamamamos al metodo del servicio que realiza la actualizacion del usuario
+    console.log(this.oferta.jornada.jornada);
     this._ofertaService.updateOferta(this.oferta, this.token).subscribe(
       response => { //RESPUESTA
         if(!this.oferta){// Si no hay oferta
           this.status = 'error';
         } else { // Si hay oferta
           this.status = 'success';
+          console.log('RESULTADO:');
           console.log(this.oferta);
           this._router.navigate(['/ofertas']);
 

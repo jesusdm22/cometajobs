@@ -39,6 +39,8 @@ export class NuevaOfertaComponent implements OnInit {
     }
 
     this.oferta = new Oferta("","","","","","","","","");
+
+    
   }
 
   ngOnInit(): void {
@@ -46,6 +48,7 @@ export class NuevaOfertaComponent implements OnInit {
 
     this.getJornadas();
     this.getUbicaciones();
+    this.oferta.ubicacion = this.ubicaciones[0].ubicacion;
   }
 
   getUbicaciones() {

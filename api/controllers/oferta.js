@@ -150,7 +150,7 @@ function updateOferta(req, res) {
     var update = req.body;
 
     // Si son iguales, buscamos y actualizamos ({new:true} devuelve la oferta actualizado, false el original)
-    Oferta.findByIdAndUpdate(ofertaId, update, { new: true, useFindAndModify: false }, (err, ofertaUpdated) => {
+    Oferta.findByIdAndUpdate(ofertaId, update, { new: true, useFindAndModify: false }).exec((err, ofertaUpdated) => {
 
         if (err)// Si hay error
             return res.status(500).send({ message: 'Error en la peticion' });

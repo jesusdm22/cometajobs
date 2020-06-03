@@ -33,8 +33,9 @@ export class OfertaService {
       let params = JSON.stringify(oferta); //Obtenemos datos del form y los convertimos en js
       let headers = new HttpHeaders().set('Content-Type', 'application/json') //Cabeceras
                                .set('Authorization', token);
-    console.log("OFERTA QUE LLEGA AL SERVICIO:");
-    console.log(oferta._id);
+    console.log("ESTA ES LA JORNADA QUE SE INSERTA EN LA DB:");
+    console.log(oferta.jornada);
+
                                //Peticion HTTP y devolver el resultado
     return this._http.put(this.url+'update-oferta/'+oferta._id, params, {headers:headers});
 

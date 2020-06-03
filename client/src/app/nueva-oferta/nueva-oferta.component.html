@@ -59,21 +59,26 @@
 
           <div class="row">
             <div class="col-md-5 mb-3">
-              <!--Tipo de perfil-->
+              <!--Ubicacion-->
               <label for="ubicacion">Ubicacion:</label>
-              <select class="custom-select d-block w-100" name="ubicacion" #ubicacion="ngModel" [(ngModel)]="oferta.ubicacion" required>
-                <option value="{{ubicacion.ubicacion}}" *ngFor="let ubicacion of ubicaciones">{{ubicacion.ubicacion}}</option>
+              <select class="custom-select d-block w-100" [(ngModel)]="oferta.ubicacion" name="ubicacion" #ubicacion="ngModel" required>
+                <option value="" ngSelectOption disabled>Selecciona una ubicacion</option>
+                <ng-container *ngFor="let ubi of ubicaciones">
+                  <option [ngValue]="ubi.ubicacion">{{ubi.ubicacion}}</option>
+                </ng-container>
               </select>
-
             </div>
+
 
             <div class="col-md-5 mb-3">
                 <!--Tipo de perfil-->
                 <label for="jornada">Jornada:</label>
-                <select class="custom-select d-block w-100" name="jornada" #jornada="ngModel" [(ngModel)]="oferta.jornada" required>
-                  <option value="{{jornada._id}}" *ngFor="let jornada of jornadas">{{jornada.jornada}}</option>
+                <select class="custom-select d-block w-100" [(ngModel)]="oferta.jornada" name="jornada" #jornada="ngModel" required>
+                  <option value="" ngSelectOption disabled>Selecciona una jornada</option>
+                  <ng-container *ngFor="let jornada of jornadas">
+                    <option [ngValue]="jornada._id">{{jornada.jornada}}</option>
+                  </ng-container>
                 </select>
-  
               </div>
           </div>
 

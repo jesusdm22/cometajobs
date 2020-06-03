@@ -84,6 +84,7 @@
               <!--Tipo de perfil-->
               <label for="country">Tipo de perfil:</label>
               <select class="custom-select d-block w-100" name="acceso" #acceso="ngModel" [(ngModel)]="usuario.acceso" required>
+                <option value="" ngSelectOption disabled>Selecciona un tipo de perfil</option>
                 <option value="3" >Candidato</option>
                 <option value="2" >Empresa</option>
                 <option value="1" >Administrador</option>
@@ -92,7 +93,6 @@
 
             </div>
           </div>
-
           <hr class="mb-4">
           <!--Enviar form-->
               <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!newUserForm.form.valid">Guardar</button>

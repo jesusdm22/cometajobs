@@ -95,6 +95,7 @@ export class EditarOfertaComponent implements OnInit {
           this.status = 'error';
         } else { // Si hay oferta
           this.status = 'success';
+          this._router.navigate(['/profile/', this.identity._id]);
 
         }
       },

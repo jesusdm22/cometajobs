@@ -63,16 +63,16 @@
               <select class="custom-select d-block w-100" name="ubicacion" #ubicacion="ngModel" [(ngModel)]="oferta.oferta.ubicacion" required>
                 <option value="{{ubicacion.ubicacion}}" *ngFor="let ubicacion of ubicaciones">{{ubicacion.ubicacion}}</option>
               </select>
-
             </div>
 
             <div class="col-md-5 mb-3">
                 <!--Tipo de perfil-->
                 <label for="jornada">Jornada:</label>
-                <select class="custom-select d-block w-100" name="jornada" #jornada="ngModel" [(ngModel)]="oferta.oferta.jornada" required>
-                  <option value="{{jornada._id}}" *ngFor="let jornada of jornadas">{{jornada.jornada}}</option>
+                <select class="custom-select d-block w-100" name="jornada" #jornada="ngModel" [(ngModel)]="oferta.oferta.jornada._id"  required>
+                  <ng-container *ngFor="let jornada of jornadas">
+                    <option [ngValue]="jornada._id">{{jornada.jornada}}</option>
+                  </ng-container>
                 </select>
-  
               </div>
           </div>
 
