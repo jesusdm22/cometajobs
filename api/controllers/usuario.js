@@ -285,7 +285,7 @@ function uploadImage(req, res) {
         var file_path = req.files.image.path; // Ruta de imagen
         console.log(file_path);
 
-        var file_split = file_path.split('\\'); // Spliteamos la ruta por barra
+        var file_split = file_path.split('/'); // Spliteamos la ruta por barra
         var file_name = file_split[2]; // El nombre se encuentra en la posicion 2 del array
         console.log(file_name);
 
