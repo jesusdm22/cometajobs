@@ -4,7 +4,7 @@
 // Cargamos librerias
 var express = require('express');
 var bodyParser = require('body-parser');
-
+var path = require('path');
 // Instanciamos el framework (Express)
 var app = express();
 
@@ -31,6 +31,8 @@ app.use((req, res, next) => {
 });
 
 
+app.use('/', express.static('cliente', {redirect:false}));
+
 // Rutas
 app.use('/api', rutas_usuario);
 app.use('/api', rutas_oferta);
@@ -38,6 +40,10 @@ app.use('/api', rutas_jornada);
 app.use('/api', rutas_ubicacion);
 app.use('/api', rutas_inscripcion);
 app.use('/api', rutas_busqueda);
+
+app.get('*', function(req, res, next){
+          res.sendFile(path.join(__dirname, 'cliente', 'index.html'));
+});
 
 
 // Exportar la app

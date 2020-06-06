@@ -4,6 +4,7 @@
 // Cargamos librerias
 var express = require('express');
 var bodyParser = require('body-parser');
+var path = require('path');
 
 // Instanciamos el framework (Express)
 var app = express();
@@ -23,13 +24,14 @@ app.use(bodyParser.json()); // La convertimos a JSON
 // Cors (configurar cabeceras http en front-end angular)
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method, Access-Control-Allow-Origin');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
  
     next();
 });
 
+app.use('/', express.static('administrador', {redirect:false}));
 
 // Rutas
 app.use('/api', rutas_usuario);
@@ -39,6 +41,9 @@ app.use('/api', rutas_ubicacion);
 app.use('/api', rutas_inscripcion);
 app.use('/api', rutas_busqueda);
 
+app.get('*', function(req, res, next){
+	  res.sendFile(path.join(__dirname, 'administrador', 'index.html'));
+});
 
 // Exportar la app
 module.exports = app;
