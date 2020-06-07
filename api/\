@@ -4,9 +4,11 @@
 // Cargamos librerias
 var express = require('express');
 var bodyParser = require('body-parser');
-var path = require('path');
+//var cors = require('cors');
 // Instanciamos el framework (Express)
 var app = express();
+//app.use(cors());
+
 
 // Cargar rutas
 var rutas_usuario = require('./routes/usuario.js');
@@ -20,10 +22,19 @@ var rutas_busqueda = require('./routes/busqueda.js');
 app.use(bodyParser.urlencoded({extended:false})); // Configuracion de bodyParser
 app.use(bodyParser.json()); // La convertimos a JSON
 
+//Cors (configurar cabeceras http en front-end angular)
+app.use((req, res, next) => {
+   //res.header('Access-Control-Allow-Origin', '*');
+   // res.header("Access-Control-Allow-Headers", "Origin, X-Requeted-With, Content-Type, Accept, Authorization, RBR");
+   // res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Access-Control-Expose-Headers', 'Authorization');    
+    next();
+});
 
-
-
-app.use('/', express.static('cliente', {redirect:false}));
 
 // Rutas
 app.use('/api', rutas_usuario);
@@ -32,10 +43,6 @@ app.use('/api', rutas_jornada);
 app.use('/api', rutas_ubicacion);
 app.use('/api', rutas_inscripcion);
 app.use('/api', rutas_busqueda);
-
-app.get('*', function(req, res, next){
-          res.sendFile(path.join(__dirname, 'cliente', 'index.html'));
-});
 
 
 // Exportar la app
