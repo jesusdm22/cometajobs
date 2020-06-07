@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
           }
       },
       error =>{ // Si hay un error de escritura en URL redirigimos a error
-        this._router.navigate(['/error']);
+        //this._router.navigate(['/error']);
       }
     );
   }

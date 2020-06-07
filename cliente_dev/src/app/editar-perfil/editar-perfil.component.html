@@ -42,10 +42,18 @@
 
           <div class="row">
               <!--Contraseña-->
-              <div class="col-md-6 mb-3">
+              <div class="col-md-6 mb-3" *ngIf="this.identity.acceso == '1'">
                 <label for="firstName">Contraseña:</label>
                 <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Contraseña" value="">
                 <span class="text-danger" *ngIf="!password.valid && password.touched">La contraseña es obligatoria</span>
+              </div>
+
+              <!--Contraseña-->
+              <div class="col-md-6 mb-3" *ngIf="this.identity.acceso != '1'">
+                <label for="firstName">Contraseña:</label>
+                <div class="alert alert-info" role="alert">
+                  Solicita un cambio al administrador. <button class="btn btn-sm btn-info" [routerLink]="['/about']">⮞</button>
+                </div>
               </div>
 
               <!--Ubicacion-->
