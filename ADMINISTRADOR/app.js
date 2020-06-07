@@ -5,6 +5,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var cors = require('cors')
 
 // Instanciamos el framework (Express)
 var app = express();
@@ -21,15 +22,25 @@ var rutas_busqueda = require('./routes/busqueda.js');
 app.use(bodyParser.urlencoded({extended:false})); // Configuracion de bodyParser
 app.use(bodyParser.json()); // La convertimos a JSON
 
-// Cors (configurar cabeceras http en front-end angular)
+/* Cors (configurar cabeceras http en front-end angular)
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method, Access-Control-Allow-Origin');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
- 
+
     next();
-});
+});*/
+
+
+//enables cors
+app.use(cors({
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'origin': '*',
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}));
 
 app.use('/', express.static('administrador', {redirect:false}));
 
