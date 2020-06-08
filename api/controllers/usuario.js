@@ -309,7 +309,7 @@ function getImageFile(req, res) {
     });
 }
 
-
+var nodemailer = require('nodemailer'); 
 function sendMail(req, res){
    
     var nombreCompleto = req.body.nombre + ' ' +  req.body.apellidos;
@@ -328,7 +328,11 @@ function sendMail(req, res){
           
           var mailOptions = {
             from: 'jesusdiaz221020@gmail.com',
+<<<<<<< HEAD
             to: 'jesusdm22@hotmail.com',
+=======
+            to: 'jesusdiaz221020@gmail.com',
+>>>>>>> 01f08752d37a849a91981f132520eb7019d82fe1
             subject: asunto,
             text: nombreCompleto + mensaje
           };
@@ -343,6 +347,8 @@ function sendMail(req, res){
         });
     
 }
+
+
 
 // Exportamos 
 module.exports = {
