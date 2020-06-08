@@ -5,7 +5,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var cors = require('cors')
+//var cors = require('cors')
 
 // Instanciamos el framework (Express)
 var app = express();
@@ -33,14 +33,7 @@ app.use((req, res, next) => {
 });*/
 
 
-//enables cors
-app.use(cors({
-  'allowedHeaders': ['sessionId', 'Content-Type'],
-  'exposedHeaders': ['sessionId'],
-  'origin': '*',
-  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  'preflightContinue': false
-}));
+
 
 app.use('/', express.static('administrador', {redirect:false}));
 

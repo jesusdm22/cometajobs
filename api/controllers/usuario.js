@@ -129,27 +129,7 @@ function getUser(req, res) {
     });
 }
 
-async function followThisUser(identity_user_id, user_id) {
-    var following = await Follow.findOne({ user: identity_user_id, followed: user_id }).exec()
-        .then((following) => {
-            return following;
-        })
-        .catch((err) => {
-            return handleError(err);
-        });
-    var followed = await Follow.findOne({ user: user_id, followed: identity_user_id }).exec()
-        .then((followed) => {
-            return followed;
-        })
-        .catch((err) => {
-            return handleError(err);
-        });
 
-    return {
-        following: following,
-        followed: followed
-    };
-}
 
 
 // Funcion para devolver un listado de usuarios paginado
@@ -228,26 +208,13 @@ function updateUser(req, res) {
     var userId = req.params.id;
     var update = req.body;
 
-    delete update.password;
-    //Encriptamos el password que nos llega  
-    //update.password = bcrypt.hashSync(update.password);
+    // borrar propiedad password
+    //delete update.password;
 
+    if(update.password.length < 40)    
+    	update.password = bcrypt.hashSync(update.password);
+   
 
-    //Necesitamos comprobar si la contraseña que nos llega es igual a la ya almacenada
-    User.findById(userId, (err, user) => {
-        if (!user) return res.status(404).send({ message: "Usuario no encontrado" });
-        if (err) return res.status(500).send({ message: "Error en la peticion" });
-
-       //Si la contraseña que nos llega es diferente de la que hay en el servidor
-       //es por que el usuario la ha cambiado
-       if (update.password != user.password)
-            //Por tanto, la contraseña a actualizar, es la que nos llega, pero encriptada
-            update.password = update.password = bcrypt.hashSync(update.password);
-        
-    });
-
-
-    //Buscamos duplicidad en el login y en el email
     User.find({
         $or: [
             { email: update.email },
@@ -275,7 +242,9 @@ function updateUser(req, res) {
             return res.status(200).send({ message: userUpdated }); // Devolvemos el usuario
         });
     });
+
 }
+
 
 // Subir archivos de imagen 
 function uploadImage(req, res) {
