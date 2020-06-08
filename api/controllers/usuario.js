@@ -311,30 +311,36 @@ function getImageFile(req, res) {
 
 
 function sendMail(req, res){
-    sgMail.setApiKey('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');
-  
+   
     var nombreCompleto = req.body.nombre + ' ' +  req.body.apellidos;
     var asunto = req.body.asunto;
     var mensaje = req.body.mensaje;
-    var enviado = false;
+    
 
-    const msg = {
-        to: 'jesusdm22@hotmail.com',
-        from: 'jesusdiaz221020@gmail.com',
-        subject: asunto,
-        text: '<h2>' + nombreCompleto + '</h2><br><strong>' + mensaje + '</strong>',
-        html: '<h2>' + nombreCompleto + '</h2><br><strong>' + mensaje + '</strong>',
-    };
 
-    sgMail.send(msg).then(() => {
-        console.log('Mensaje enviado');
-        enviado = true;
-    }).catch((error) => {
-        console.log(error.response.body);
-    });
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'jesusdiaz221020@gmail.com',
+            pass: 'Jdm.2210'
+            }
+          });
+          
+          var mailOptions = {
+            from: 'jesusdiaz221020@gmail.com',
+            to: 'jesusdm22@hotmail.com',
+            subject: asunto,
+            text: nombreCompleto + mensaje
+          };
+          
 
-    if(enviado)
-        return res.status(200).send('Mensaje enviado');
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              return res.status(500).send(error);
+            } else {
+                return res.status(200).send(info.response);
+            }
+        });
     
 }
 
