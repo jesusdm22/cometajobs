@@ -12,6 +12,7 @@ import { Jornada } from '../models/jornada';
 import { Oferta } from '../models/oferta';
 import { Form } from '@angular/forms';
 import { Inscripcion } from '../models/inscripcion';
+import { Usuario } from '../models/usuario';
 
 @Component({
   selector: 'app-home',
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit, DoCheck {
   public ofertas;
   public listaIdOfertas = [];
   public buscador = false;
+  public user: Usuario;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -43,11 +45,17 @@ export class HomeComponent implements OnInit, DoCheck {
     private _jornadaService: JornadaService,
     private _ofertaService: OfertaService,
     private _inscripcionService: InscripcionService,
+    private _router: Router
 
   ) {
     this.url = GLOBAL.url;
     this.identity = this._usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
+
+    //Si no hay sesion
+    if(!this.identity){
+      this._router.navigate(['/login']);
+    }
 
 
   }

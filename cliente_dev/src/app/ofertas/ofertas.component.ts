@@ -56,10 +56,10 @@ export class OfertasComponent implements OnInit, DoCheck {
         this.status = "warning";
         this.mensaje = "Realiza una busqueda!";
 
-        /*Si no hay sesion ni eres usuario redirigimos al login
-      if(!this.identity || this.identity._id != this.user._id){
+      //*Si no hay sesion ni eres usuario redirigimos al login
+      if(!this.identity ){
         this._router.navigate(['/login']);
-      }*/
+      }
         
      }
 
