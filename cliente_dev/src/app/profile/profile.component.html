@@ -27,7 +27,7 @@
             <br>
             <br>
 
-            <!--SECCION INSCRIPCIONES/OFERTAS-->
+            <!--SECCION INSCRIPCIONES/OFERTAS/ADMIN-->
             <!--Para ve estas secciones se debe haber iniciado sesion, que el tipo de acceso sea el adecuado, 
                 y que el usuario que este identificado coincida con el que queremos ver-->
                 
@@ -35,7 +35,12 @@
             <app-mis-inscripciones *ngIf="this.identity && (this.identity.acceso == 3) && (this.user._id == this.identity._id)"></app-mis-inscripciones>
             <!--Para empresas-->
             <app-mis-ofertas *ngIf="this.identity && (this.identity.acceso == 2) && (this.user._id == this.identity._id)"></app-mis-ofertas>
-            
+            <!--Para admins-->
+            <div *ngIf="this.identity && (this.identity.acceso == 1) && (this.user._id == this.identity._id)">
+              <p>Eres un administrador</p>
+              <a class="btn btn-sm btn-success" href="https://admin.cometajobs.com">Ir al panel de administracion</a>
+            </div>
+
           </div>  
           
         </div>

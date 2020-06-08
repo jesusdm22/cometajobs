@@ -64,6 +64,7 @@ export class HomeComponent implements OnInit, DoCheck {
   ngDoCheck() {
 
     this.identity = this._usuarioService.getIdentity();
+    this.misInscripciones();
   }
 
   getUbicaciones() {
@@ -154,7 +155,7 @@ export class HomeComponent implements OnInit, DoCheck {
         response => {
           console.log('Inscripcion realizada con exito');
           response.inscripciones;
-          window.location.reload();
+          //window.location.reload();
         },
         (error) => {
           console.log(<any>error);

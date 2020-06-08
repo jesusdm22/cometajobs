@@ -63,6 +63,7 @@ export class OfertasComponent implements OnInit, DoCheck {
 
   ngDoCheck(){
     this.identity = this._usuarioService.getIdentity();
+    this.misInscripciones();
   }
 
 
@@ -137,7 +138,7 @@ export class OfertasComponent implements OnInit, DoCheck {
         response => {
           console.log('Inscripcion realizada con exito');
           response.inscripciones;
-          window.location.reload();
+          //window.location.reload();
         },
         (error) => {
           console.log(<any>error);

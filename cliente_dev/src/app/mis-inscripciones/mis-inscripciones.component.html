@@ -2,7 +2,7 @@
 <h5>Mis inscripciones</h5>
 <hr>
 <div class="mb-5">
-
+    <p *ngIf="listaIdOfertas.length == 0">Aun no te has inscrito a ninguna oferta</p>
     <div  *ngFor="let inscripcion of inscripcionesArray">
         <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3 sombra" *ngIf="identity && (identity.acceso == 3) && (listaIdOfertas.indexOf(inscripcion.oferta._id) >= 0) ">
 

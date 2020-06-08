@@ -44,12 +44,25 @@ export class LoginComponent implements OnInit {
             this.status = 'success';
             //Obtener el token
             console.log(this.identity);
-            //Persistir datos del usuario
-            localStorage.setItem('identity', JSON.stringify(this.identity));
             
-            this.getToken(); //Llamada a la funcion que obtiene el token
-            console.log(localStorage.getItem('token'));
-            this._router.navigate(['/home']);
+            
+
+            if(this.identity.acceso == '1'){
+              //Persistir datos del usuario
+              localStorage.setItem('identity', JSON.stringify(this.identity));
+              this.getToken(); //Llamada a la funcion que obtiene el token
+              console.log(localStorage.getItem('token'));
+
+              window.location.href = 'https://admin.cometajobs.com';
+
+            } else {
+              //Persistir datos del usuario
+              localStorage.setItem('identity', JSON.stringify(this.identity));
+              this.getToken(); //Llamada a la funcion que obtiene el token
+              console.log(localStorage.getItem('token'));
+
+              this._router.navigate(['/home']);
+            }
           }
            
           
