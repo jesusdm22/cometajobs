@@ -13,16 +13,6 @@ var mongoosePagination = require('mongoose-pagination');
 var fs = require('fs');
 // Cargamos path
 var path = require('path');
-var md5  = require('md5');
-var ReverseMd5 = require('reverse-md5');
-var reverseMd5 = ReverseMd5({
-	lettersUpper: false,
-	lettersLower: true,
-	numbers: true,
-	special: false,
-	whitespace: true,
-	maxLen: 12
-});
 
 //Sendgrid
 const sgMail = require('@sendgrid/mail');
@@ -67,7 +57,8 @@ function saveUser(req, res) {
                 return res.status(200).send({ message: 'El usuario que intentas registrar ya existe' });
             else {
                 // Encriptamos contraseña y guardamos los datos
-                    user.password = md5(params.password);
+                bcrypt.hash(params.password, null, null, (err, hash) => {
+                    user.password = hash;
                     // Guardamos en la bd
                     user.save((err, userStored) => {
                         if (err)
@@ -77,6 +68,7 @@ function saveUser(req, res) {
                         else
                             res.status(404).send({ message: 'No se ha registrado el usuario' });
                     });
+                });
             }
         });
 
@@ -102,8 +94,8 @@ function loginUser(req, res) {
             return res.status(500).send({ message: 'Error en la peticion' });
 
         if (user) {
-
-                if (password == reverseMd5(user.password).str) {
+            bcrypt.compare(password, user.password, (err, check) => {
+                if (check) {
                     if (params.gettoken) {
                         // generar y devolver token
                         return res.status(200).send({
@@ -111,18 +103,15 @@ function loginUser(req, res) {
                         });
                     } else {
                         // devolver user
-                        console.log( 'Sesion iniciada!');
                         user.password = undefined; // Para eliminar la propiedad y no mostrar la contraseña
                         return res.status(200).send({ user });
                     }
 
                 } else {
-                    console.log( 'El usuario no se puede identificar');
                     return res.status(404).send({ message: 'El usuario no se puede identificar' });
                 }
-
+            });
         } else {
-            console.log( 'El usuario no existe');
             return res.status(404).send({ message: 'El usuario no se puede identificar!!' })
         }
     });
@@ -138,6 +127,28 @@ function getUser(req, res) {
         return res.status(200).send({user});
         
     });
+}
+
+async function followThisUser(identity_user_id, user_id) {
+    var following = await Follow.findOne({ user: identity_user_id, followed: user_id }).exec()
+        .then((following) => {
+            return following;
+        })
+        .catch((err) => {
+            return handleError(err);
+        });
+    var followed = await Follow.findOne({ user: user_id, followed: identity_user_id }).exec()
+        .then((followed) => {
+            return followed;
+        })
+        .catch((err) => {
+            return handleError(err);
+        });
+
+    return {
+        following: following,
+        followed: followed
+    };
 }
 
 
@@ -217,6 +228,7 @@ function updateUser(req, res) {
     var userId = req.params.id;
     var update = req.body;
 
+    delete update.password;
     //Encriptamos el password que nos llega  
     //update.password = bcrypt.hashSync(update.password);
 
@@ -226,18 +238,11 @@ function updateUser(req, res) {
         if (!user) return res.status(404).send({ message: "Usuario no encontrado" });
         if (err) return res.status(500).send({ message: "Error en la peticion" });
 
-        console.log(update.password);
-        console.log(user.password);
-
        //Si la contraseña que nos llega es diferente de la que hay en el servidor
        //es por que el usuario la ha cambiado
-       if(update.password != user.password) {
-            if (md5(update.password) != user.password){
-                //Por tanto, la contraseña a actualizar, es la que nos llega, pero encriptada
-                update.password = md5(update.password);
-        }
-       }
-       
+       if (update.password != user.password)
+            //Por tanto, la contraseña a actualizar, es la que nos llega, pero encriptada
+            update.password = update.password = bcrypt.hashSync(update.password);
         
     });
 
@@ -281,7 +286,7 @@ function uploadImage(req, res) {
         var file_path = req.files.image.path; // Ruta de imagen
         console.log(file_path);
 
-        var file_split = file_path.split('\\'); // Spliteamos la ruta por barra
+        var file_split = file_path.split('/'); // Spliteamos la ruta por barra
         var file_name = file_split[2]; // El nombre se encuentra en la posicion 2 del array
         console.log(file_name);
 
