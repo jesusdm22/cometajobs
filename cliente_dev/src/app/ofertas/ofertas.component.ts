@@ -56,10 +56,10 @@ export class OfertasComponent implements OnInit, DoCheck {
         this.status = "warning";
         this.mensaje = "Realiza una busqueda!";
 
-        //Si no hay sesion ni eres usuario redirigimos al login
+        /*Si no hay sesion ni eres usuario redirigimos al login
       if(!this.identity || this.identity._id != this.user._id){
         this._router.navigate(['/login']);
-      }
+      }*/
         
      }
 
@@ -71,7 +71,7 @@ export class OfertasComponent implements OnInit, DoCheck {
 
   ngDoCheck(){
     this.identity = this._usuarioService.getIdentity();
-    this.misInscripciones();
+    //this.misInscripciones();
   }
 
 
@@ -146,7 +146,7 @@ export class OfertasComponent implements OnInit, DoCheck {
         response => {
           console.log('Inscripcion realizada con exito');
           response.inscripciones;
-          //window.location.reload();
+          window.location.reload();
         },
         (error) => {
           console.log(<any>error);
