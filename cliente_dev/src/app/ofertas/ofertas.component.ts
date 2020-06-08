@@ -12,6 +12,7 @@ import { Jornada } from '../models/jornada';
 import { Oferta } from '../models/oferta';
 import { Form } from '@angular/forms';
 import { Inscripcion } from '../models/inscripcion';
+import { Usuario } from '../models/usuario';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class OfertasComponent implements OnInit, DoCheck {
   public jornadas: Jornada[];
   public inscripcionesArray;
   public ofertas;
+  public user: Usuario;
   public listaIdOfertas = [];
   public resultados;
   public initForm 
@@ -45,13 +47,19 @@ export class OfertasComponent implements OnInit, DoCheck {
     private _ubicacionService: UbicacionService,
     private _jornadaService: JornadaService,
     private _ofertaService: OfertaService,
-    private _inscripcionService: InscripcionService)
+    private _inscripcionService: InscripcionService, 
+    private _router: Router)
     {
         this.url = GLOBAL.url;
         this.identity = this._usuarioService.getIdentity();
         this.token = this._usuarioService.getToken();
         this.status = "warning";
         this.mensaje = "Realiza una busqueda!";
+
+        //Si no hay sesion ni eres usuario redirigimos al login
+      if(!this.identity || this.identity._id != this.user._id){
+        this._router.navigate(['/login']);
+      }
         
      }
 
