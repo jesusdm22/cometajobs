@@ -129,27 +129,6 @@ function getUser(req, res) {
     });
 }
 
-async function followThisUser(identity_user_id, user_id) {
-    var following = await Follow.findOne({ user: identity_user_id, followed: user_id }).exec()
-        .then((following) => {
-            return following;
-        })
-        .catch((err) => {
-            return handleError(err);
-        });
-    var followed = await Follow.findOne({ user: user_id, followed: identity_user_id }).exec()
-        .then((followed) => {
-            return followed;
-        })
-        .catch((err) => {
-            return handleError(err);
-        });
-
-    return {
-        following: following,
-        followed: followed
-    };
-}
 
 
 // Funcion para devolver un listado de usuarios paginado
@@ -228,6 +207,7 @@ function updateUser(req, res) {
     var userId = req.params.id;
     var update = req.body;
 
+    delete update.password;
     //Encriptamos el password que nos llega  
     //update.password = bcrypt.hashSync(update.password);
 
@@ -275,6 +255,7 @@ function updateUser(req, res) {
         });
     });
 }
+            
 
 // Subir archivos de imagen 
 function uploadImage(req, res) {
