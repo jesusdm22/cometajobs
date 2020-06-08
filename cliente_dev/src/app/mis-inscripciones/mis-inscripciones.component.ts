@@ -52,8 +52,7 @@ export class MisInscripcionesComponent implements OnInit {
       this._router.navigate(['/login']);
     }
     
-
-    
+    this.misInscripciones();
   }
   
 
@@ -69,6 +68,7 @@ export class MisInscripcionesComponent implements OnInit {
   ngDoCheck() {
 
     this.identity = this._usuarioService.getIdentity();
+    //this.misInscripciones();
   }
 
   getUbicaciones() {

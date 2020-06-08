@@ -57,7 +57,6 @@ export class HomeComponent implements OnInit, DoCheck {
       this._router.navigate(['/login']);
     }
 
-
   }
 
   ngOnInit(): void {
