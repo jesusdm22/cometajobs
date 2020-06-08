@@ -1,14 +1,15 @@
 # Cometa Jobs
 
-Necesario iniciar tanto la API, como el cliente, y el panel de administracion.
+Necesario iniciar tanto la API, como el cliente, y el panel de administracion (desarrollo (carpeta_dev)).
+Las carpetas en mayusculas son las compilaciones de estas carpetas, y las que se subiran al servidor.
 <br><br>
 Cada modulo de la aplicacion va sobre un puerto distinto.
 <br><br>
-API -> Puerto 3800
+api -> Puerto 3800
 <br>
-Cliente -> Puerto 4200
+cliente_dev -> Puerto 4200
 <br>
-Admin -> Puerto a elegir (4300 por ejemplo)
+admin_dev -> Puerto a elegir (4300 por ejemplo)
 <br>
 Para ejecutar la aplicacion se require MongoDB, y realizar npm install tanto en 'admin', como en 'client'
 <br>
