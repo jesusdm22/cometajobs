@@ -309,43 +309,9 @@ function getImageFile(req, res) {
     });
 }
 
-var nodemailer = require('nodemailer'); 
+//var nodemailer = require('nodemailer'); 
 function sendMail(req, res){
-   
-    var nombreCompleto = req.body.nombre + ' ' +  req.body.apellidos;
-    var asunto = req.body.asunto;
-    var mensaje = req.body.mensaje;
-    
-
-
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'jesusdiaz221020@gmail.com',
-            pass: 'Jdm.2210'
-            }
-          });
-          
-          var mailOptions = {
-            from: 'jesusdiaz221020@gmail.com',
-<<<<<<< HEAD
-            to: 'jesusdm22@hotmail.com',
-=======
-            to: 'jesusdiaz221020@gmail.com',
->>>>>>> 01f08752d37a849a91981f132520eb7019d82fe1
-            subject: asunto,
-            text: nombreCompleto + mensaje
-          };
-          
-
-        transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-              return res.status(500).send(error);
-            } else {
-                return res.status(200).send(info.response);
-            }
-        });
-    
+       
 }
 
 
