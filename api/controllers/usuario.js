@@ -193,21 +193,25 @@ function deleteUser(req, res) {
     var userId = req.params.id;
 
     User.find({'_id': userId }).exec((err, usuario) => {
-        if(usuario.login == 'admin') 
+        if(usuario.login == 'admin'){
             return res.status(500).send({ message: 'No puedes eliminar al administrador principal' });
+        } else {
+            User.find({'_id': userId }).remove((err, usuarioEliminado) => {
+                if (err) return res.status(500).send({ message: 'Error al intentar eliminar el usuario' });
+        
+                if (!usuarioEliminado) return res.status(404).send({ message: 'El usuario no existe o ya ha sido eliminado' });
+                
+                //if(usuarioEliminado.login == 'admin') res.status(500).send({ message: 'No puedes eliminar al administrador principal' });
+        
+                return res.status(200).send({ message: 'El usuario ha sido eliminado' });
+            });
+        }
+            
                  
     });
 
 
-    User.find({'_id': userId }).remove((err, usuarioEliminado) => {
-        if (err) return res.status(500).send({ message: 'Error al intentar eliminar el usuario' });
-
-        if (!usuarioEliminado) return res.status(404).send({ message: 'El usuario no existe o ya ha sido eliminado' });
-        
-        //if(usuarioEliminado.login == 'admin') res.status(500).send({ message: 'No puedes eliminar al administrador principal' });
-
-        return res.status(200).send({ message: 'El usuario ha sido eliminado' });
-    });
+    
 }
 
 
