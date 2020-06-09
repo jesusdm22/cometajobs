@@ -191,7 +191,7 @@ function getEmpresas(req, res) {
 function deleteUser(req, res) {
 
     var userId = req.params.id;
-
+    console.log(req.user.sub._id);
     if(req.user.sub._id == userId) {
         return res.status(500).send({ message: 'No puedes eliminarte a ti mismo'});
     } else {
