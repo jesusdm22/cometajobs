@@ -194,7 +194,7 @@ function deleteUser(req, res) {
 
     User.find({'_id': userId }).exec((err, usuario) => {
         if(usuario.login == 'admin') 
-            res.status(500).send({ message: 'No puedes eliminar al administrador principal' });
+            return res.status(500).send({ message: 'No puedes eliminar al administrador principal' });
                  
     });
 
