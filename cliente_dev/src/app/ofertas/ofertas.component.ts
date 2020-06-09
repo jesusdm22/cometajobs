@@ -146,7 +146,8 @@ export class OfertasComponent implements OnInit, DoCheck {
         response => {
           console.log('Inscripcion realizada con exito');
           response.inscripciones;
-          window.location.reload();
+          //window.location.reload();
+          this._router.navigate(['/profile/', this.identity._id]);
         },
         (error) => {
           console.log(<any>error);

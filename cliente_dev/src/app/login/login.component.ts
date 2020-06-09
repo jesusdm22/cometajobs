@@ -61,7 +61,8 @@ export class LoginComponent implements OnInit {
               this.getToken(); //Llamada a la funcion que obtiene el token
               console.log(localStorage.getItem('token'));
 
-              this._router.navigate(['/home']);
+              this._router.navigate(['/home/']);
+              
             }
           }
            

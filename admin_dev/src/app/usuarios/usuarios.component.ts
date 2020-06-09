@@ -97,7 +97,6 @@ export class UsuariosComponent implements OnInit, DoCheck {
       );
     }
     
-
 }
 
 //Funcion que llamaremos desde el boton de eliminar de cada fila

@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
     this.url = GLOBAL.url;
     this.identity = this._usuarioService.getIdentity();
     this.token = this._usuarioService.getToken();
+    
 
   }
 
