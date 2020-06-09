@@ -192,7 +192,7 @@ function deleteUser(req, res) {
 
     var userId = req.params.id;
 
-    if(req.user.sub == userId) {
+    if(req.user.sub._id == userId) {
         return res.status(500).send({ message: 'No puedes eliminarte a ti mismo'});
     } else {
         User.find({'_id': userId }).remove((err, usuarioEliminado) => {
