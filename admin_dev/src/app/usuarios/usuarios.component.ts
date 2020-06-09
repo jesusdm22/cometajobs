@@ -79,17 +79,24 @@ export class UsuariosComponent implements OnInit, DoCheck {
   //Funcion que obtiene de la sesion el id a eliminar, y lo eliminar
   //Esta funcion solo se ejecuta si se clica 'Si' en el modal
   deleteUsuario(){
-    this._usuarioService.deleteUser(sessionStorage.getItem('idEliminar')).subscribe(
-      response =>{
-            this.ngOnInit();
-            sessionStorage.removeItem('idEliminar'); //Limpiamos la variable de sesion
-            document.getElementById('cerrar').click();//Cerramos el modal
-      },
-      error => {
-        console.log(<any>error);
-        window.alert("Error al borrar el usuario");
-      }
-    );
+
+    if(this.identity._id == sessionStorage.getItem('idEliminar')) {
+      this.status = 'error';
+      window.alert("No puedes borrarte a ti mismo");
+    } else {
+      this._usuarioService.deleteUser(sessionStorage.getItem('idEliminar')).subscribe(
+        response =>{
+              this.ngOnInit();
+              sessionStorage.removeItem('idEliminar'); //Limpiamos la variable de sesion
+              document.getElementById('cerrar').click();//Cerramos el modal
+        },
+        error => {
+          console.log(<any>error);
+          window.alert("Error al borrar el usuario");
+        }
+      );
+    }
+    
 
 }
 
