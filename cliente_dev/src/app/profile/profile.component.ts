@@ -56,4 +56,9 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  editarUsuario(idUsuario){
+    this._router.navigate(['/editar-usuario/', idUsuario]);
+    console.log("click");
+  }
+
 }

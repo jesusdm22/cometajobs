@@ -32,9 +32,23 @@ export class EditarPerfilComponent implements OnInit {
     if(!this.identity || this.identity._id != this.user._id){
       this._router.navigate(['/login']);
     }
+
+    //Asignamos el usuario en el que hemos clicado 
+    _usuarioService.getUser(_route.snapshot.paramMap.get('id')).subscribe(
+      response => {
+        if(this.user._id != _route.snapshot.paramMap.get('id')) {
+          this._router.navigate(['/error']);
+        } else {
+          this.user = response.user;
+          console.log(this.user);
+        }
+          
+        
+      }
+    );
    }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
   }
   
   ngDoCheck(){
@@ -49,17 +63,16 @@ export class EditarPerfilComponent implements OnInit {
           this.status = 'error';
         } else { // Si hay usuario
           this.status = 'success';
-          localStorage.setItem('identity', JSON.stringify(this.user)); // Actualizamos en localstorage
-          this.identity = this.user; //actualizamos en codigo
           //Y la actualizacion de la base de datos ya se hizo
 
           //Subida de imagen de usuario
           this._uploadService.makeFileRequest(this.url+'update-image-user/'+this.user._id, [], this.filesToUpload, this.token, 'image')
           .then((result:any) => {
             console.log(result);
-            this.user.imagen = result.user.image;
+            this.user.imagen = result.user.imagen;
             localStorage.setItem('identity', JSON.stringify(this.user));
           });
+
           this._router.navigate(['/profile/', this.identity._id]);
         }
       },
@@ -72,6 +85,7 @@ export class EditarPerfilComponent implements OnInit {
       }
     );
   }
+  
 
   public filesToUpload: Array<File>;
   fileChangeEvent(fileInput: any) { //Funcion que captura la imagen seleccionada en un input del form

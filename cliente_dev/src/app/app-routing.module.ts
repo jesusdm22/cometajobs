@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
   {path: 'home', component: HomeComponent},
   {path: 'profile/:id', component: ProfileComponent},
-  {path: 'editar-perfil', component: EditarPerfilComponent},
+  {path: 'editar-perfil/:id', component: EditarPerfilComponent},
   {path: 'editar-oferta/:id', component: EditarOfertaComponent},
   {path: 'nueva-oferta', component: NuevaOfertaComponent},
   {path: 'oferta/:id', component: OfertaComponent},

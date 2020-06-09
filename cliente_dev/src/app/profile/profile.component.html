@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-6">
               <h1>Mi perfil</h1>
-              <button class="btn btn-sm btn-warning" *ngIf="this.identity._id == user._id" [routerLink]="['/editar-perfil']">Editar</button>
+              <a class="btn btn-sm btn-warning" *ngIf="this.identity._id == user._id" [routerLink]="['/editar-perfil/' , identity._id]">Editar</a>
             </div>
           </div>
         </div>
