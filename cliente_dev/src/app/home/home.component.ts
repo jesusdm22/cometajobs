@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit, DoCheck {
   ngDoCheck() {
 
     this.identity = this._usuarioService.getIdentity();
-    this.misInscripciones();
+    //this.misInscripciones();
   }
 
   getUbicaciones() {

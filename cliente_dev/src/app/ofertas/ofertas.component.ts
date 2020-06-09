@@ -60,7 +60,7 @@ export class OfertasComponent implements OnInit, DoCheck {
       if(!this.identity ){
         this._router.navigate(['/login']);
       }
-        
+     
      }
 
   ngOnInit(): void {
@@ -71,7 +71,7 @@ export class OfertasComponent implements OnInit, DoCheck {
 
   ngDoCheck(){
     this.identity = this._usuarioService.getIdentity();
-    this.misInscripciones();
+    //this.misInscripciones();
   }
 
 
